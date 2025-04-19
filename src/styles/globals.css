@@ -23,6 +23,10 @@ background-color:#FAFAFA;
   font-family: gandom !important;
 }
 
-.css-13p5qbm-MuiTypography-root{
-  text-align: right;
+.css-13p5qbm-MuiTypography-root,
+.css-8hcqzf-MuiTableCell-root,
+.css-13bkrnq-MuiTableCell-root
+{
+  text-align: right !important;
 }
+

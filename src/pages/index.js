@@ -30,7 +30,7 @@ export async function getServerSideProps() {
 }
 
 const Home = ({ initialUsers }) => {
-  const { toggleTheme } = useThemeContext();
+  const { toggleTheme , toggleOffcanvas} = useThemeContext();
 
   const { data } = useQuery({
     queryKey: ['users'],
@@ -44,7 +44,7 @@ const Home = ({ initialUsers }) => {
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <div style={{ width: '100%', height: '100%', margin: '1rem' }}>
-        <NavbarComp toggleTheme={toggleTheme} />
+        <NavbarComp toggleOffcanvas={toggleOffcanvas} toggleTheme={toggleTheme} />
 
         <Box
           component="div"

@@ -5,6 +5,7 @@ const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
+  const [isOpen, setIsOpen] = useState(false);
 
   // بارگذاری تم از localStorage
   useEffect(() => {
@@ -21,8 +22,11 @@ export const ThemeProvider = ({ children }) => {
 
   const muiTheme = theme === 'light' ? lightTheme : darkTheme;
 
+  const toggleOffcanvas = () => setIsOpen(!isOpen);
+
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, muiTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, muiTheme , toggleOffcanvas , isOpen}}>
       {children}
     </ThemeContext.Provider>
   );
