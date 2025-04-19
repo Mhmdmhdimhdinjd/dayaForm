@@ -1157,15 +1157,16 @@ const Form = () => {
                 calendarPosition="bottom-right"
                 placeholder="تاریخ تولد خود را وارد کنید"
                 className="purple"
-                inputClass={`foro-control ${errors.date ? 'is-invalid' : ''}`}
                 onChange={(date) => field.onChange(date)}
                 style={{
                   width: '100%',
                   fontFamily: 'gandom',
                   borderRadius: '8px',
-                  backgroundColor: isDark ? '#2d2d2d' : 'rgba(0, 0, 0, 0.05)',
+                  height:'54px',
+                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
                   color: isDark ? '#ffffff' : '#000000',
                   padding: '12.5px 14px',
+                  
                 }}
               />
             )}
