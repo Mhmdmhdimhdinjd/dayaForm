@@ -1,0 +1,24 @@
+@font-face {
+  font-family: gandom;
+  src: url(../assets/Fonts/gandom-font/Gandom.ttf);
+}
+
+@font-face {
+  font-family: kharazmi;
+  src: url(../assets/Fonts/IRAN_Kharazmi/IRAN-Kharazmi.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+background-color:#FAFAFA;
+
+}
+
+.muirtl-rizt0-MuiTypography-root{
+  font-family: gandom !important;
+}
