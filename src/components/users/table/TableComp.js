@@ -1,13 +1,12 @@
-// src/components/template/TableComp.js
 import { useMemo, useEffect, useState } from 'react';
 import { useReactTable, flexRender, getCoreRowModel } from '@tanstack/react-table';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Paper,
   Button,
   Dialog,
@@ -17,16 +16,15 @@ import {
   CircularProgress,
   Typography,
   Box,
-  IconButton
+  IconButton,
 } from '@mui/material';
-// import { useTheme } from '@/src/context/themecontext';
+import { useThemeContext } from '@/src/lib/ThemeContext';
 import useDeleteUser from '@/src/hooks/useDeleteUser';
 import dynamic from 'next/dynamic';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import fa from './fa';
 import CloseIcon from '@mui/icons-material/Close';
-
 
 const JoditEditor = dynamic(
   () => import('jodit-react'),
@@ -37,7 +35,8 @@ const JoditEditor = dynamic(
 );
 
 const TableComp = ({ data }) => {
-  const  isDark = false
+  const { theme } = useThemeContext();
+  const isDark = theme === 'dark';
   const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
   const [isMounted, setIsMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -50,7 +49,6 @@ const TableComp = ({ data }) => {
   const handleDelete = (id) => {
     if (confirm('آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟')) {
       deleteUser(id);
-      // mutate
     }
   };
 
@@ -88,7 +86,7 @@ const TableComp = ({ data }) => {
       readonly: true,
       placeholder: 'متن نمایشی...',
       buttons: false,
-      theme: isDark ? 'dark' : 'light',
+      theme: isDark ? 'dark' : 'default',
     }),
     [isDark]
   );
@@ -130,11 +128,11 @@ const TableComp = ({ data }) => {
         header: 'عملیات',
         cell: ({ row }) => (
           <Box display="flex">
-            <Button 
-              variant="contained" 
-              color="info" 
-              size="small" 
-              onClick={() => handleView(row.original)} 
+            <Button
+              variant="contained"
+              color="info"
+              size="small"
+              onClick={() => handleView(row.original)}
               sx={{ mr: 1 }}
             >
               مشاهده
@@ -212,15 +210,15 @@ const TableComp = ({ data }) => {
         دریافت فایل اکسل
       </Button>
 
-      <Dialog 
-        open={modalOpen} 
+      <Dialog
+        open={modalOpen}
         onClose={() => setModalOpen(false)}
         fullWidth
         maxWidth="md"
         PaperProps={{
           sx: {
-            bgcolor: isDark ? 'grey.800' : 'background.paper'
-          }
+            bgcolor: isDark ? 'grey.800' : 'background.paper',
+          },
         }}
       >
         <DialogTitle>
