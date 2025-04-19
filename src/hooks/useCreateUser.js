@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 const createUser = async (newUserData) => {
+  console.log('nnnnn',newUserData)
   const response = await axios.post('http://localhost:3000/api', newUserData);
   return response.data.user;
 };

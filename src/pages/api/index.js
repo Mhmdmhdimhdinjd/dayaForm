@@ -31,6 +31,8 @@ const handler = async (req, res) => {
         const {
           first__name,
           last__name,
+          Province,
+          city,
           postal_code,
           resume,
           date,
@@ -40,13 +42,15 @@ const handler = async (req, res) => {
           part_time_job,
         } = req.body;
 
-        if (!first__name || !last__name || !postal_code || !resume || !date || !idType || !idNumber) {
+        if (!first__name || !last__name || !Province || !city || !postal_code || !resume || !date || !idType || !idNumber) {
           return res.status(400).json({ error: 'تمام فیلدها الزامی هستند' });
         }
 
         const newUser = await User.create({
           first__name,
           last__name,
+          Province,
+          city,
           postal_code,
           resume,
           date,

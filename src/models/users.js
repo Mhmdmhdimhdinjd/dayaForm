@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema({
   first__name: { type: String, required: true },
   last__name: { type: String, required: true },
+  Province: { type: Object,required: true },
+  city: { type: Object, required: true },
   postal_code: { type: String, required: true },
   resume: { type: String, required: true },
   date: { type: String, required: true },
