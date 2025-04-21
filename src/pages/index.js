@@ -39,6 +39,7 @@ const Home = ({ initialUsers }) => {
       return res.json();
     },
     initialData: initialUsers,
+    refetchOnMount: false, 
   });
 
   return (
