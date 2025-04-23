@@ -12,21 +12,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-background-color:#FAFAFA;
-
-}
-
-.muirtl-rizt0-MuiTypography-root{
   font-family: gandom !important;
-}
-
-.css-13p5qbm-MuiTypography-root,
-.css-8hcqzf-MuiTableCell-root,
-.css-13bkrnq-MuiTableCell-root
-{
   text-align: right !important;
 }
 
+body {
+  background-color: #FAFAFA;
+}
+
+/* .MuiTableCell-root {
+  min-width: 116px !important;
+} */

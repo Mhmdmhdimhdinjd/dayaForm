@@ -4,18 +4,25 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { ThemeProvider, useThemeContext } from '@/src/lib/ThemeContext';
 import CssBaseline from '@mui/material/CssBaseline';
+import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <AppWrapper>
-          <Component {...pageProps} />
-        </AppWrapper>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <title>دایا تدبیر</title>
+        
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AppWrapper>
+            <Component {...pageProps} />
+          </AppWrapper>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </>
   );
 }
 

@@ -43,8 +43,8 @@ const Home = ({ initialUsers }) => {
   });
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
-      <div style={{ width: '100%', height: '100%', margin: '1rem' }}>
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '100%', margin: '1rem', flex: '1' , overflow:'hidden'}}>
         <NavbarComp toggleOffcanvas={toggleOffcanvas} toggleTheme={toggleTheme} />
 
         <Box

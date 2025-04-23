@@ -60,23 +60,29 @@ const lightTheme = createTheme({
       },
     },
     MuiListItemButton: {
-        styleOverrides: {
-          root: {
-            flexDirection: 'row-reverse', // تنظیم جهت راست‌چین
-            marginBottom: '8px',
-            '& .MuiListItemIcon-root': {
-              minWidth: 0,
-              marginLeft: '8px',
-              color: 'black', // تنظیم رنگ ایکون‌ها
-            },
-            '& .css-rizt0-MuiTypography-root': {
-              textAlign: 'right', // متن راست‌چین
-              fontFamily:'Gandom',
-            },
-            borderRadius: '12px', // گوشه‌های گرد
+      styleOverrides: {
+        root: {
+          flexDirection: 'row-reverse', // تنظیم جهت راست‌چین
+          marginBottom: '8px',
+          '& .MuiListItemIcon-root': {
+            minWidth: 0,
+            marginLeft: '8px',
+            color: 'black', // تنظیم رنگ ایکون‌ها
           },
+          '& .css-rizt0-MuiTypography-root': {
+            textAlign: 'right', // متن راست‌چین
+            fontFamily: 'Gandom',
+          },
+          borderRadius: '12px', // گوشه‌های گرد
         },
       },
+    },
+  },
+  breakpoints: {
+    values: {
+      sm: 710,
+      xs:0,
+    },
   },
 });
 
@@ -140,23 +146,29 @@ const darkTheme = createTheme({
       },
     },
     MuiListItemButton: {
-        styleOverrides: {
-          root: {
-            flexDirection: 'row-reverse', // تنظیم جهت راست‌چین
-            marginBottom: '8px',
-            '& .MuiListItemIcon-root': {
-              minWidth: 0,
-              marginLeft: '8px',
-              color: 'black', // تنظیم رنگ ایکون‌ها
-            },
-            '& .css-rizt0-MuiTypography-root': {
-              textAlign: 'right', // متن راست‌چین
-              fontFamily:'Gandom',
-            },
-            borderRadius: '12px', // گوشه‌های گرد
+      styleOverrides: {
+        root: {
+          flexDirection: 'row-reverse', // تنظیم جهت راست‌چین
+          marginBottom: '8px',
+          '& .MuiListItemIcon-root': {
+            minWidth: 0,
+            marginLeft: '8px',
+            color: 'black', // تنظیم رنگ ایکون‌ها
           },
+          '& .css-rizt0-MuiTypography-root': {
+            textAlign: 'right', // متن راست‌چین
+            fontFamily: 'Gandom',
+          },
+          borderRadius: '12px', // گوشه‌های گرد
         },
       },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs:0,
+      sm: 710,
+    },
   },
 });
 
