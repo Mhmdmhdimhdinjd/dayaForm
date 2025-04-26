@@ -139,7 +139,7 @@ const TableComp = ({ data }) => {
         id: 'actions',
         header: 'عملیات',
         cell: ({ row }) => (
-          <Box display="flex">
+          <Box display="flex" gap={1}>
             <Button
               variant="contained"
               color="info"
@@ -178,12 +178,12 @@ const TableComp = ({ data }) => {
   return (
     <Box dir="rtl" sx={{ overflowX: 'auto' }}>
       <TableContainer component={Paper} sx={{ mt: 4 }}>
-        <Table>
+        <Table sx={{ minWidth: 700 }}>
           <TableHead sx={{ bgcolor: isDark ? 'grey.800' : 'grey.100' }}>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableCell key={header.id} sx={{ fontWeight: 'bold' }}>
+                  <TableCell key={header.id} >
                     {flexRender(header.column.columnDef.header, header.getContext())}
                   </TableCell>
                 ))}
