@@ -1,11 +1,11 @@
-import NavbarComp from '../components/layout/navBar';
-import NestedList from '../components/layout/sideBar';
-import Form from '../components/users/form';
-import TableComp from '../components/users/table/TableComp';
+import NavbarComp from '../components/template/navBar/index';
+import NestedList from '../components/template/sideBar/index';
+import Form from '../components/template/form/index';
+import TableComp from '../components/template/table/TableComp';
 import { useThemeContext } from '@/src/lib/ThemeContext';
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import useLoadUser from '../hooks/useLoadUser';
-import Footer from '../components/layout/footer';
+import Footer from '../components/template/footer/index';
 
 
 

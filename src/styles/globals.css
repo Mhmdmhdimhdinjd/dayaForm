@@ -1,12 +1,8 @@
 @font-face {
   font-family: gandom;
-  src: url(../assets/Fonts/gandom-font/Gandom.ttf);
+  src: url(../public/Fonts/gandom-font/Gandom.ttf);
 }
 
-@font-face {
-  font-family: kharazmi;
-  src: url(../assets/Fonts/IRAN_Kharazmi/IRAN-Kharazmi.ttf);
-}
 
 * {
   margin: 0;

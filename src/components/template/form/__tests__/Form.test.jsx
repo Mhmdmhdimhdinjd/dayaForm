@@ -293,7 +293,7 @@ describe('Form Component Validation', () => {
         expect(screen.getByText(/کد پستی اجباری است/i)).toBeInTheDocument();
         expect(screen.getByText(/تاریخ اجباری است/i)).toBeInTheDocument();
         expect(screen.getByText(/حداقل یکی از موارد باید انتخاب شود/i)).toBeInTheDocument(); // برای چک‌باکس‌ها
-        expect(screen.getByText(/کد ملی الزامی است/i)).toBeInTheDocument();
+        expect(screen.getByText(/کد ملی اجباری است/i)).toBeInTheDocument();
         expect(screen.getByText(/رزومه اجباری است/i)).toBeInTheDocument();
       });
     });

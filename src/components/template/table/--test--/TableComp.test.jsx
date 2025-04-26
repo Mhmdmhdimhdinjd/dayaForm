@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { act } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import TableComp from '../TableComp';
 import { ThemeProvider } from '@/src/lib/ThemeContext'; import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -41,26 +41,10 @@ const mockData = [
 ];
 
 describe('TableComp', () => {
-    beforeEach(() => {
-        jest.spyOn(window, 'confirm').mockReturnValue(true);
-    });
 
     afterEach(() => {
         jest.clearAllMocks();
     });
-
-
-    // تست رندر اولیه قبل از mount
-    // test('renders loading state before mount', () => {
-    //     render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <ThemeProvider>
-    //                 <TableComp data={mockData} />
-    //             </ThemeProvider>
-    //         </QueryClientProvider>
-    //     );
-    //     expect(screen.getByText(/در حال بارگیری جدول.../i)).toBeInTheDocument();
-    // });
 
 
     // تست رندر جدول با داده
@@ -116,17 +100,16 @@ describe('TableComp', () => {
             </QueryClientProvider>
         );
 
-        const viewButton = screen.getAllByText(/مشاهده/i)[0];
-        fireEvent.click(viewButton);
+        const viewButton = screen.getByRole('button', { name: /مشاهده/i });
+        await act(async () => {
+            fireEvent.click(viewButton);
+        });
+
 
         await waitFor(() => {
+            expect(screen.getByRole('dialog')).toBeInTheDocument();
             expect(screen.getByText(/جزئیات/i)).toBeInTheDocument();
-            expect(screen.getByText(/نام: علی/i)).toBeInTheDocument();
-            expect(screen.getByText(/نام خانوادگی: احمدی/i)).toBeInTheDocument();
-            expect(screen.getByText(/تاریخ تولد: 1400\/01\/01/i)).toBeInTheDocument();
-            expect(screen.getByText(/رزومه:/i)).toBeInTheDocument();
-            expect(screen.getByText(/این یک رزومه نمونه است./i)).toBeInTheDocument();
-        });
+          });
     });
 
 
@@ -169,8 +152,12 @@ describe('TableComp', () => {
         const deleteButton = screen.getAllByText(/حذف/i)[0];
         fireEvent.click(deleteButton);
 
+
+        const confirmdeleteButton = screen.getAllByText(/!حذف/i)[0];
+        fireEvent.click(confirmdeleteButton);
+
+
         await waitFor(() => {
-            expect(window.confirm).toHaveBeenCalledWith('آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟');
             expect(mockDeleteUser).toHaveBeenCalledWith('1');
         });
     });

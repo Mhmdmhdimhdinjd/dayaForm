@@ -389,7 +389,7 @@ const TableComp = ({ data }) => {
               '&:hover': { bgcolor: 'error.dark' }
             }}
           >
-            حذف
+            !حذف
           </Button>
         </DialogActions>
       </Dialog>
