@@ -99,7 +99,7 @@ const Home = ({ initialUsers }) => {
               textAlign: 'center',
             }}
           >
-            © طراحی و توسعه توسط دانا تدبیر یسر
+            © طراحی و توسعه توسط دایا تدبیر یسر
           </Typography>
         </Box>
       </div>

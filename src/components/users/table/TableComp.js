@@ -23,7 +23,7 @@ import useDeleteUser from '@/src/hooks/useDeleteUser';
 import dynamic from 'next/dynamic';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import fa from './fa';
+import fa from '@/src/assets/fa.js';
 import CloseIcon from '@mui/icons-material/Close';
 
 const JoditEditor = dynamic(
@@ -191,7 +191,7 @@ const TableComp = ({ data }) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} align="center">
+                <TableCell colSpan={columns.length} sx={{textAlign:"center !important"}}>
                   داده‌ای برای نمایش وجود ندارد
                 </TableCell>
               </TableRow>
@@ -203,7 +203,7 @@ const TableComp = ({ data }) => {
       <Button
         variant="contained"
         color="success"
-        disabled={data.length === 0}
+        disabled={!data.length}
         onClick={handleExportExcel}
         sx={{ mt: 3, mb: 3 }}
       >

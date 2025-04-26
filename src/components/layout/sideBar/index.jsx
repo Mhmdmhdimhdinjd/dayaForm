@@ -16,9 +16,10 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import { Avatar, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import logo from '@/src/assets/images/VerticalMenu.png';
 import { useThemeContext } from '@/src/lib/ThemeContext';
 import Drawer from '@mui/material/Drawer';
+import { CiCircleInfo } from "react-icons/ci";
+
 
 export default function NestedList() {
   const { theme, isOpen, toggleOffcanvas } = useThemeContext();
@@ -54,24 +55,24 @@ export default function NestedList() {
       aria-labelledby="nested-list-subheader"
     >
       <Grid container sx={{ alignItems: 'center' }}>
-        <Grid
-          container
+        <Grid size={3}
           sx={{
-            border: '2px solid',
-            borderColor: isDark ? 'white' : 'black',
-            borderRadius: '50%',
-            width: 20,
-            height: 20,
-            mr: 'auto',
-            alignItems: 'center',
-            justifyContent: 'center',
-            ml: 3,
+          //   // border: '2px solid',
+          //   // borderColor: isDark ? 'white' : 'black',
+          //   // borderRadius: '50%',
+          //   // width: 20,
+          //   // height: 20,
+            ml: 'auto',
+          //   alignItems: 'center',
+          //   justifyContent: 'center',
+          //   ml: 3,
           }}
         >
-          <Typography color={isDark ? 'white' : 'black'} fontSize={12}>1</Typography>
+         <CiCircleInfo size={24} />
+          {/* <Typography color={isDark ? 'white' : 'black'} fontSize={12}>1</Typography> */}
         </Grid>
-        <Grid>
-          <img style={{ width: '100%', margin: 'auto' }} src={logo} alt="" />
+        <Grid size={9}>
+          <img style={{ width: '100%', margin: 'auto' }} src="https://dayatadbir.com/wp-content/uploads/2024/02/DayaTadbir_Logo_White.png" alt="" />
         </Grid>
       </Grid>
 

@@ -9,6 +9,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Grid,
 } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -19,7 +20,7 @@ import DatePicker from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import 'react-multi-date-picker/styles/colors/purple.css';
-import fa from './fa';
+import fa from '../../../assets/fa';
 import dynamic from 'next/dynamic';
 import Label from '../../ui/label/index';
 import { Controller, useForm } from 'react-hook-form';
@@ -314,301 +315,339 @@ const Form = () => {
       </Typography>
 
       <form style={{ direction: 'rtl' }} onSubmit={handleSubmit(onSubmit)}>
-        <FormControl fullWidth>
-          <Label labelText="نام" />
-          <Controller
-            control={control}
-            name="first__name"
-            render={({ field }) => (
-              <CssTextField
-                {...field}
-                margin="none"
-                label="لطفا نام خود را وارد کنید"
-                id="custom-css-outlined-input"
+
+        <Grid container spacing={2}>
+
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth>
+              <Label labelText="نام" />
+              <Controller
+                control={control}
+                name="first__name"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    margin="none"
+                    label="لطفا نام خود را وارد کنید"
+                  />
+                )}
               />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px'}}>
-            {errors.first__name?.message}
-          </Typography>
-        </FormControl>
+              <Typography color="error" sx={{ minHeight: '24px' }}>
+                {errors.first__name?.message}
+              </Typography>
+            </FormControl>
 
-        <FormControl fullWidth>
-          <Label labelText="نام خانوادگی" />
-          <Controller
-            control={control}
-            name="last__name"
-            render={({ field }) => (
-              <CssTextField
-                {...field}
-                margin="none"
-                label="لطفا نام خانوادگی خود را وارد کنید"
-                id="custom-css-outlined-input"
+          </Grid>
+
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth>
+              <Label labelText="نام خانوادگی" />
+              <Controller
+                control={control}
+                name="last__name"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    margin="none"
+                    label="لطفا نام خانوادگی خود را وارد کنید"
+                    id="custom-css-outlined-input"
+                  />
+                )}
               />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px'}}>
-            {errors.last__name?.message}
-          </Typography>
-        </FormControl>
+              <Typography color="error" sx={{ minHeight: '24px' }}>
+                {errors.last__name?.message}
+              </Typography>
+            </FormControl>
 
-        <FormControl fullWidth>
-          <Label labelText="استان" />
-          <Controller
-            control={control}
-            name="Province"
-            render={({ field }) => (
-              <Select
-                {...field}
-                components={animatedComponents}
-                placeholder="لطفا استان را انتخاب کنید"
-                options={options1}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    neutral0: isDark ? '#2d2d2d' : theme.colors.neutral0,
-                    neutral80: isDark ? '#fff' : theme.colors.neutral80,
-                    neutral50: isDark ? '#ccc' : theme.colors.neutral50,
-                    primary25: isDark ? '#404040' : theme.colors.primary25,
-                    neutral30: isDark ? '#666' : '#fff',
-                  },
-                })}
-                styles={selectStyles} // استفاده از استایل‌های دینامیک
+          </Grid>
+
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth>
+              <Label labelText='استان' htmlFor='province' />
+              <Controller
+                control={control}
+                name="Province"
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    components={animatedComponents}
+                    placeholder="لطفا استان را انتخاب کنید"
+                    options={options1}
+                    inputId='province'
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        neutral0: isDark ? '#2d2d2d' : theme.colors.neutral0,
+                        neutral80: isDark ? '#fff' : theme.colors.neutral80,
+                        neutral50: isDark ? '#ccc' : theme.colors.neutral50,
+                        primary25: isDark ? '#404040' : theme.colors.primary25,
+                        neutral30: isDark ? '#666' : '#fff',
+                      },
+                    })}
+                    styles={selectStyles} // استفاده از استایل‌های دینامیک
+                  />
+                )}
               />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px' }}>
-            {errors.Province?.message}
-          </Typography>
-        </FormControl>
+              <Typography color="error" sx={{ minHeight: '24px' }}>
+                {errors.Province?.message}
+              </Typography>
+            </FormControl>
 
+          </Grid>
 
-        <FormControl fullWidth>
-          <Label labelText="شهر" />
-          <Controller
-            control={control}
-            name="city"
-            render={({ field }) => (
-              <Select
-                {...field}
-                components={animatedComponents}
-                placeholder={selectedOption ? 'لطفا شهر را انتخاب کنید' : "ابتدا استان را انتخاب کنید"}
-                options={selectedOption && options2[selectedOption.value]}
-                isDisabled={!selectedOption}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    neutral0: isDark ? '#2d2d2d' : theme.colors.neutral0,
-                    neutral80: isDark ? '#fff' : theme.colors.neutral80,
-                    neutral50: isDark ? '#ccc' : theme.colors.neutral50,
-                    primary25: isDark ? '#404040' : theme.colors.primary25,
-                    neutral30: isDark ? '#666' : '#fff',
-                  },
-                })}
-                styles={selectStyles} // استفاده از استایل‌های دینامیک
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth>
+              <Label labelText="شهر" htmlFor='city' />
+              <Controller
+                control={control}
+                name="city"
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    components={animatedComponents}
+                    placeholder={selectedOption ? 'لطفا شهر را انتخاب کنید' : "ابتدا استان را انتخاب کنید"}
+                    options={selectedOption && options2[selectedOption.value]}
+                    isDisabled={!selectedOption}
+                    inputId="city"
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        neutral0: isDark ? '#2d2d2d' : theme.colors.neutral0,
+                        neutral80: isDark ? '#fff' : theme.colors.neutral80,
+                        neutral50: isDark ? '#ccc' : theme.colors.neutral50,
+                        primary25: isDark ? '#404040' : theme.colors.primary25,
+                        neutral30: isDark ? '#666' : '#fff',
+                      },
+                    })}
+                    styles={selectStyles} // استفاده از استایل‌های دینامیک
+                  />
+                )}
               />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px' }}>
-            {errors.city?.message}
-          </Typography>
-        </FormControl>
+              <Typography color="error" sx={{ minHeight: '24px' }}>
+                {errors.city?.message}
+              </Typography>
+            </FormControl>
 
-        <FormControl fullWidth>
-          <Label labelText="کد پستی" />
-          <Controller
-            control={control}
-            name="postal_code"
-            render={({ field }) => (
-              <CssTextField
-                {...field}
-                margin="none"
-                label="کد پستی خود را وارد کنید"
-                id="postal-code-input"
-                inputProps={{ maxLength: 10 }}
-                error={!!errors.postal_code}
-                onInput={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                }}
-              />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px' }}>
-            {errors.postal_code?.message}
-          </Typography>
-        </FormControl>
+          </Grid>
 
-        <FormControl fullWidth sx={{ mb: 3 }}>
-          <Label labelText="کد ملی یا شناسه اقتصادی" />
-          <Controller
-            control={control}
-            name="idNumber"
-            render={({ field }) => (
-              <Box sx={{ display: 'flex' }}>
-                <CssTextFieldNationalcode
-                  {...field}
-                  fullWidth
-                  margin="none"
-                  label={
-                    selectedType === 'national'
-                      ? 'کد ملی (۱۰ رقم)'
-                      : 'شناسه اقتصادی (۱۲ رقم)'
-                  }
-                  type="text"
-                  inputProps={{
-                    maxLength: selectedType === 'national' ? 10 : 12,
-                    dir: 'rtl',
-                    inputMode: 'numeric',
-                    pattern: '[0-9]*',
-                  }}
-                  error={!!errors.idNumber}
-                  onInput={(e) => {
-                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
-                  }}
-                />
-                <ButtonGroup color="secondary" variant="outlined">
-                  <Button
-                    onClick={() => handleTypeChange('national')}
-                    variant={selectedType === 'national' ? 'contained' : 'outlined'}
-                    sx={{
-                      borderTopLeftRadius: 0,
-                      borderBottomLeftRadius: 0,
-                      whiteSpace: 'nowrap',
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth>
+              <Label labelText="کد پستی" />
+              <Controller
+                control={control}
+                name="postal_code"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    margin="none"
+                    label="کد پستی خود را وارد کنید"
+                    id="postal-code-input"
+                    inputProps={{ maxLength: 10 }}
+                    error={!!errors.postal_code}
+                    onInput={(e) => {
+                      e.target.value = e.target.value.replace(/[^0-9]/g, '');
                     }}
-                  >
-                    حقیقی
-                  </Button>
-                  <Button
-                    onClick={() => handleTypeChange('economic')}
-                    variant={selectedType === 'economic' ? 'contained' : 'outlined'}
-                    sx={{ whiteSpace: 'nowrap' }}
-                  >
-                    حقوقی
-                  </Button>
-                </ButtonGroup>
-              </Box>
-            )}
-          />
-          <Typography
-            color="error"
-            sx={{
-              minHeight: '24px',
-              mt: 1,
-            }}
-          >
-            {errors.idNumber?.message}
-          </Typography>
-        </FormControl>
+                  />
+                )}
+              />
+              <Typography color="error" sx={{ minHeight: '24px' }}>
+                {errors.postal_code?.message}
+              </Typography>
+            </FormControl>
 
-        <FormControl fullWidth component="fieldset">
-          <Label labelText="نوع همکاری:" />
-          <FormGroup row sx={{ gap: 3 }}>
-            <FormControlLabel
-              control={
-                <Controller
-                  control={control}
-                  name="full_time_job"
-                  render={({ field }) => (
-                    <Checkbox
-                      {...field}
-                      checked={!!field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                      color="secondary"
-                    />
-                  )}
-                />
-              }
-              label="تمام وقت"
-            />
-            <FormControlLabel
-              control={
-                <Controller
-                  control={control}
-                  name="part_time_job"
-                  render={({ field }) => (
-                    <Checkbox
-                      {...field}
-                      checked={!!field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                      color="secondary"
-                    />
-                  )}
-                />
-              }
-              label="پاره وقت"
-            />
-          </FormGroup>
-          {errors.checkboxes && (
-            <Typography
-              color="error"
-              sx={{
-                minHeight: '24px',
-                mt: 1,
-              }}
-            >
-              {errors.checkboxes.message}
-            </Typography>
-          )}
-        </FormControl>
+          </Grid>
 
-        <FormControl fullWidth sx={{ mb: 2 }}>
-          <Label labelText="تاریخ تولد" />
-          <Controller
-            control={control}
-            name="date"
-            render={({ field }) => (
-              <DatePicker
-                {...field}
-                calendar={persian}
-                locale={persian_fa}
-                calendarPosition="bottom-right"
-                placeholder="تاریخ تولد خود را وارد کنید"
-                className="purple"
-                onChange={(date) => field.onChange(date)}
-                style={{
-                  width: '100%',
-                  borderRadius: '8px',
-                  height:'54px',
-                  backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
-                  color: isDark ? '#ffffff' : '#000000',
-                  padding: '12.5px 14px',
-                  
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <Label labelText="تاریخ تولد" htmlFor='date-picker'/>
+              <Controller
+                control={control}
+                name="date"
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    calendar={persian}
+                    locale={persian_fa}
+                    calendarPosition="bottom-right"
+                    placeholder="تاریخ تولد خود را وارد کنید"
+                    className="purple"
+                    onChange={(date) => field.onChange(date)}
+                    inputId='date-picker'
+                    style={{
+                      width: '100%',
+                      borderRadius: '8px',
+                      height: '54px',
+                      backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
+                      color: isDark ? '#ffffff' : '#000000',
+                      padding: '12.5px 14px',
+
+                    }}
+                  />
+                )}
+              />
+              <Typography
+                color="error"
+                sx={{
+                  minHeight: '24px',
+                  mt: 1,
                 }}
-              />
-            )}
-          />
-          <Typography
-            color="error"
-            sx={{
-              minHeight: '24px',
-              mt: 1,
-            }}
-          >
-            {errors.date?.message}
-          </Typography>
-        </FormControl>
+              >
+                {errors.date?.message}
+              </Typography>
+            </FormControl>
 
-        <FormControl fullWidth>
-          <Label labelText="رزومه کامل" />
-          <Controller
-            control={control}
-            name="resume"
-            render={({ field }) => (
-              <JoditEditor
-                {...field}
-                config={firstconfig}
-                value={field.value}
-                tabIndex={1}
-                onChange={(newContent) => field.onChange(newContent)}
+          </Grid>
+
+          <Grid size={{ xs: 12 , Laptop:6,LaptopL:4, lg: 3 }}>
+
+            <FormControl fullWidth component="fieldset">
+              <Label labelText="نوع همکاری:" />
+              <FormGroup row sx={{ gap: 3 }}>
+                <FormControlLabel
+                  control={
+                    <Controller
+                      control={control}
+                      name="full_time_job"
+                      render={({ field }) => (
+                        <Checkbox
+                          {...field}
+                          checked={!!field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                          color="secondary"
+                        />
+                      )}
+                    />
+                  }
+                  label="تمام وقت"
+                />
+                <FormControlLabel
+                  control={
+                    <Controller
+                      control={control}
+                      name="part_time_job"
+                      render={({ field }) => (
+                        <Checkbox
+                          {...field}
+                          checked={!!field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                          color="secondary"
+                        />
+                      )}
+                    />
+                  }
+                  label="پاره وقت"
+                />
+              </FormGroup>
+              {errors.checkboxes && (
+                <Typography
+                  color="error"
+                  sx={{
+                    minHeight: '24px',
+                    mt: 1,
+                  }}
+                >
+                  {errors.checkboxes.message}
+                </Typography>
+              )}
+            </FormControl>
+
+          </Grid>
+
+          <Grid size={{ xs: 12 , Laptop:6,LaptopL:4, lg: 3 }}>
+
+            <FormControl fullWidth sx={{ mb: 3 }}>
+              <Label labelText="کد ملی یا شناسه اقتصادی" />
+              <Controller
+                control={control}
+                name="idNumber"
+                render={({ field }) => (
+                  <Box sx={{ display: 'flex' }}>
+                    <CssTextFieldNationalcode
+                      {...field}
+                      fullWidth
+                      margin="none"
+                      label={
+                        selectedType === 'national'
+                          ? 'کد ملی (۱۰ رقم)'
+                          : 'شناسه اقتصادی (۱۲ رقم)'
+                      }
+                      type="text"
+                      inputProps={{
+                        maxLength: selectedType === 'national' ? 10 : 12,
+                        dir: 'rtl',
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                      }}
+                      error={!!errors.idNumber}
+                      onInput={(e) => {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                      }}
+                    />
+                    <ButtonGroup color="secondary" variant="outlined">
+                      <Button
+                        onClick={() => handleTypeChange('national')}
+                        variant={selectedType === 'national' ? 'contained' : 'outlined'}
+                        sx={{
+                          borderTopLeftRadius: 0,
+                          borderBottomLeftRadius: 0,
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
+                        حقیقی
+                      </Button>
+                      <Button
+                        onClick={() => handleTypeChange('economic')}
+                        variant={selectedType === 'economic' ? 'contained' : 'outlined'}
+                        sx={{ whiteSpace: 'nowrap' }}
+                      >
+                        حقوقی
+                      </Button>
+                    </ButtonGroup>
+                  </Box>
+                )}
               />
-            )}
-          />
-          <Typography color="error" sx={{ minHeight: '24px' }}>
-            {errors.resume?.message}
-          </Typography>
-        </FormControl>
+              <Typography
+                color="error"
+                sx={{
+                  minHeight: '24px',
+                  mt: 1,
+                }}
+              >
+                {errors.idNumber?.message}
+              </Typography>
+            </FormControl>
+
+          </Grid>
+
+          <FormControl fullWidth>
+            <Label labelText="رزومه کامل" />
+            <Controller
+              control={control}
+              name="resume"
+              render={({ field }) => (
+                <JoditEditor
+                  {...field}
+                  config={firstconfig}
+                  value={field.value}
+                  tabIndex={1}
+                  onChange={(newContent) => field.onChange(newContent)}
+                />
+              )}
+            />
+            <Typography color="error" sx={{ minHeight: '24px' }}>
+              {errors.resume?.message}
+            </Typography>
+          </FormControl>
+
+        </Grid>
 
         <Button
           type="submit"

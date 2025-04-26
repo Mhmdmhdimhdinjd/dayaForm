@@ -42,11 +42,9 @@ const lightTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiInputBase-root': {
-            backgroundColor: '#fafafa',
             transition: 'background-color 0.3s ease, color 0.3s ease',
           },
           '& .MuiInputLabel-root': {
-            color: '#555555',
             transition: 'color 0.3s ease',
           },
         },
@@ -80,7 +78,13 @@ const lightTheme = createTheme({
   },
   breakpoints: {
     values: {
+      lg:1300,
+      LaptopL:1100,
+      md:1030,
+      Laptop:840,
+      Tablet:780,
       sm: 710,
+      mobileL:560,
       xs:0,
     },
   },
@@ -166,8 +170,14 @@ const darkTheme = createTheme({
   },
   breakpoints: {
     values: {
-      xs:0,
+      lg:1300,
+      LaptopL:1100,
+      md:1030,
+      Laptop:840,
+      Tablet:780,
       sm: 710,
+      mobileL:560,
+      xs:0,
     },
   },
 });

@@ -1,8 +1,8 @@
-const Label = ({labelText}) => {
+const Label = ({labelText , htmlFor}) => {
 
 
     return(
-        <label style={{fontFamily:'gandom' , margin:'.5rem'}} >{labelText}</label>
+        <label htmlFor={htmlFor} style={{fontFamily:'gandom' , margin:'.5rem'}} >{labelText}</label>
     )
 }
 
