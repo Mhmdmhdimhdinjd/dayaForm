@@ -14,12 +14,13 @@
   box-sizing: border-box;
   font-family: gandom !important;
   text-align: right !important;
+  text-decoration: none;
 }
 
 body {
   background-color: #FAFAFA;
 }
 
-/* .MuiTableCell-root {
-  min-width: 116px !important;
-} */
+.rmdp-container .rmdp-shadow{
+  text-align: center !important;
+}

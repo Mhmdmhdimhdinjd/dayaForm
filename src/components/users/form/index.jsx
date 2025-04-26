@@ -70,8 +70,9 @@ const CssTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
     fontFamily: 'Vazirmatn, sans-serif',
     fontSize: '0.9rem',
+    marginBottom:'0.5rem',
     backgroundColor: theme.palette.background.paper,
-    borderRadius: '8px',
+    borderRadius: '4px',
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.secondary.main,
     },
@@ -99,7 +100,7 @@ const CssTextFieldNationalcode = styled(TextField)(({ theme }) => ({
     fontFamily: 'Vazirmatn, sans-serif',
     fontSize: '0.9rem',
     backgroundColor: theme.palette.background.paper,
-    borderRadius: '8px 0 0 8px',
+    borderRadius: '4px 0 0 4px',
     margin: '0',
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.secondary.main,
@@ -133,13 +134,13 @@ const validationSchema = yup.object().shape({
     .when('idType', {
       is: 'national',
       then: (schema) =>
-        schema.required('کد ملی الزامی است').matches(/^\d{10}$/, 'کد ملی باید ۱۰ رقم باشد'),
+        schema.required('کد ملی اجباری است').matches(/^\d{10}$/, 'کد ملی باید ۱۰ رقم باشد'),
     })
     .when('idType', {
       is: 'economic',
       then: (schema) =>
         schema
-          .required('شناسه اقتصادی الزامی است')
+          .required('شناسه اقتصادی اجباری است')
           .matches(/^\d{12}$/, 'شناسه اقتصادی باید ۱۲ رقم باشد'),
     }),
   full_time_job: yup.boolean(),
@@ -392,7 +393,7 @@ const Form = () => {
                   />
                 )}
               />
-              <Typography color="error" sx={{ minHeight: '24px' }}>
+              <Typography color="error" sx={{ minHeight: '24px' , mt:1 }}>
                 {errors.Province?.message}
               </Typography>
             </FormControl>
@@ -429,7 +430,7 @@ const Form = () => {
                   />
                 )}
               />
-              <Typography color="error" sx={{ minHeight: '24px' }}>
+              <Typography color="error" sx={{ minHeight: '24px' , mt:1}}>
                 {errors.city?.message}
               </Typography>
             </FormControl>
@@ -466,7 +467,7 @@ const Form = () => {
 
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
 
-            <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormControl fullWidth>
               <Label labelText="تاریخ تولد" htmlFor='date-picker'/>
               <Controller
                 control={control}
@@ -483,7 +484,7 @@ const Form = () => {
                     inputId='date-picker'
                     style={{
                       width: '100%',
-                      borderRadius: '8px',
+                      borderRadius: '4px',
                       height: '54px',
                       backgroundColor: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
                       color: isDark ? '#ffffff' : '#000000',
@@ -643,7 +644,7 @@ const Form = () => {
                 />
               )}
             />
-            <Typography color="error" sx={{ minHeight: '24px' }}>
+            <Typography color="error" sx={{ minHeight: '24px' , mt:1 }}>
               {errors.resume?.message}
             </Typography>
           </FormControl>

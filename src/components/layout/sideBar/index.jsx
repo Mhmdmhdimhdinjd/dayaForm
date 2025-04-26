@@ -57,19 +57,10 @@ export default function NestedList() {
       <Grid container sx={{ alignItems: 'center' }}>
         <Grid size={3}
           sx={{
-          //   // border: '2px solid',
-          //   // borderColor: isDark ? 'white' : 'black',
-          //   // borderRadius: '50%',
-          //   // width: 20,
-          //   // height: 20,
             ml: 'auto',
-          //   alignItems: 'center',
-          //   justifyContent: 'center',
-          //   ml: 3,
           }}
         >
          <CiCircleInfo size={24} />
-          {/* <Typography color={isDark ? 'white' : 'black'} fontSize={12}>1</Typography> */}
         </Grid>
         <Grid size={9}>
           <img style={{ width: '100%', margin: 'auto' }} src="https://dayatadbir.com/wp-content/uploads/2024/02/DayaTadbir_Logo_White.png" alt="" />

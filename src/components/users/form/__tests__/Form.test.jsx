@@ -58,31 +58,7 @@ describe('Form Component', () => {
         expect(errorMessage).toBeInTheDocument();
     });
 
-    // test('renders city options when a province is selected', () => {
-    //     render(
-    //         <QueryClientProvider client={queryClient}>
-    //         <ThemeProvider>
-    //             <Form />
-    //         </ThemeProvider>
-    //     </QueryClientProvider>
-    //     );
-
-    //     // پیدا کردن فیلد استان
-    //     const provinceSelect = screen.getByLabelText(/Province/i);
-
-    //     // انتخاب استان "تهران"
-    //     fireEvent.change(provinceSelect, {
-    //       target: { value: 'tehran' },
-    //     });
-
-    //     // بررسی اینکه گزینه‌های شهر (مثل "تهران") نمایش داده شدن
-    //     const citySelect = screen.getByLabelText(/shahr/i);
-    //     expect(citySelect).toHaveTextContent(/تهران/i); // بررسی وجود گزینه "تهران"
-    //   });
-
-
-
-    // تست رندر فیلد استان
+    
     test('renders province field with label', () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -303,11 +279,11 @@ describe('Form Component Validation', () => {
           </ThemeProvider>
         </QueryClientProvider>
       );
-  
+
       // پیدا کردن و کلیک کردن دکمه ارسال
       const submitButton = screen.getByText(/ثبت اطلاعات/i);
       fireEvent.click(submitButton);
-  
+
       // بررسی پیام‌های خطا برای همه فیلدها
       await waitFor(() => {
         expect(screen.getByText(/نام اجباری است/i)).toBeInTheDocument();

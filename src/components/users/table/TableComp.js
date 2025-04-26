@@ -17,6 +17,8 @@ import {
   Typography,
   Box,
   IconButton,
+  Grid,
+  DialogContentText,
 } from '@mui/material';
 import { useThemeContext } from '@/src/lib/ThemeContext';
 import useDeleteUser from '@/src/hooks/useDeleteUser';
@@ -25,6 +27,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import fa from '@/src/assets/fa.js';
 import CloseIcon from '@mui/icons-material/Close';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
 
 const JoditEditor = dynamic(
   () => import('jodit-react'),
@@ -41,15 +44,25 @@ const TableComp = ({ data }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const handleDelete = (id) => {
-    if (confirm('آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟')) {
-      deleteUser(id);
+  const handleOpen = (id) => {
+    setSelectedId(id);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
+  const handleConfirm = () => {
+    if (selectedId) {
+      deleteUser(selectedId);
     }
+    setSelectedId(null);
+    handleClose();
   };
 
   const handleView = (item) => {
@@ -82,7 +95,6 @@ const TableComp = ({ data }) => {
     () => ({
       language: 'fa',
       i18n: { fa },
-      style: { fontFamily: 'gandom' },
       readonly: true,
       placeholder: 'متن نمایشی...',
       buttons: false,
@@ -141,7 +153,7 @@ const TableComp = ({ data }) => {
               variant="contained"
               color="error"
               size="small"
-              onClick={() => handleDelete(row.original._id)}
+              onClick={() => handleOpen(row.original._id)}
               disabled={isDeleting}
             >
               {isDeleting ? <CircularProgress size={20} /> : 'حذف'}
@@ -191,7 +203,7 @@ const TableComp = ({ data }) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} sx={{textAlign:"center !important"}}>
+                <TableCell colSpan={columns.length} sx={{ textAlign: "center !important" }}>
                   داده‌ای برای نمایش وجود ندارد
                 </TableCell>
               </TableRow>
@@ -203,7 +215,7 @@ const TableComp = ({ data }) => {
       <Button
         variant="contained"
         color="success"
-        disabled={!data.length}
+        disabled={!data?.length}
         onClick={handleExportExcel}
         sx={{ mt: 3, mb: 3 }}
       >
@@ -238,23 +250,146 @@ const TableComp = ({ data }) => {
         </DialogTitle>
         <DialogContent dividers dir="rtl">
           {selectedItem && (
-            <Box>
-              <Typography paragraph>نام: {selectedItem.first__name}</Typography>
-              <Typography paragraph>نام خانوادگی: {selectedItem.last__name}</Typography>
-              <Typography paragraph>تاریخ تولد: {selectedItem.date}</Typography>
-              <Typography paragraph>کد پستی: {selectedItem.postal_code}</Typography>
-              <Typography paragraph>شغل تمام وقت: {selectedItem.full_time_job ? 'بله' : 'خیر'}</Typography>
-              <Typography paragraph>شغل پاره وقت: {selectedItem.part_time_job ? 'بله' : 'خیر'}</Typography>
-              <Box>
-                <Typography paragraph>رزومه:</Typography>
-                <JoditEditor  config={secondconfig} value={selectedItem.resume} />
-              </Box>
+            <Box sx={{ p: 3 }}>
+              <Grid container spacing={3}>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>نام:</strong> {selectedItem.first__name || '-'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>نام خانوادگی:</strong> {selectedItem.last__name || '-'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>تاریخ تولد:</strong> {selectedItem.date || '-'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>کد پستی:</strong> {selectedItem.postal_code || '-'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>شغل تمام وقت:</strong> {selectedItem.full_time_job ? 'بله' : 'خیر'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
+                  <Typography variant="body1" sx={{
+                    whiteSpace: 'pre-line',
+                    wordBreak: 'break-word'
+                  }}>
+                    <strong>شغل پاره وقت:</strong> {selectedItem.part_time_job ? 'بله' : 'خیر'}
+                  </Typography>
+                </Grid>
+
+                <Grid item size={{ xs: 12 }}>
+                  <Box sx={{
+                    mt: 2,
+                    '& .jodit-wysiwyg': {
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word',
+                      fontSize: 'inherit',
+                      fontFamily: 'inherit'
+                    }
+                  }}>
+                    <Typography variant="body1" paragraph>
+                      <strong>رزومه:</strong>
+                    </Typography>
+                    <JoditEditor
+                      config={{
+                        ...secondconfig,
+                        readonly: true,
+                        toolbar: false
+                      }}
+                      value={selectedItem.resume || 'رزومه ای موجود نیست'}
+                    />
+                  </Box>
+                </Grid>
+              </Grid>
             </Box>
           )}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setModalOpen(false)} color="secondary">
             بستن
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        PaperProps={{
+          sx: {
+            borderRadius: '12px',
+            minWidth: '400px'
+          }
+        }}
+      >
+        <DialogTitle id="alert-dialog-title" sx={{ py: 3 }}>
+          <Box display="flex" alignItems="center" gap={1}>
+            <WarningAmberRoundedIcon color="warning" fontSize="large" />
+            <span>تأیید حذف کاربر</span>
+          </Box>
+        </DialogTitle>
+
+        <DialogContent sx={{ py: 2 }}>
+          <DialogContentText>
+            آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟
+            <br />
+            <strong>این عمل غیرقابل بازگشت است!</strong>
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions sx={{ px: 3, py: 2 }}>
+          <Button
+            onClick={handleClose}
+            color="inherit"
+            variant="outlined"
+            sx={{
+              minWidth: '120px',
+              '&:hover': { backgroundColor: 'action.hover' }
+            }}
+          >
+            انصراف
+          </Button>
+          <Button
+            onClick={handleConfirm}
+            color="error"
+            variant="contained"
+            autoFocus
+            sx={{
+              minWidth: '120px',
+              bgcolor: 'error.main',
+              '&:hover': { bgcolor: 'error.dark' }
+            }}
+          >
+            حذف
           </Button>
         </DialogActions>
       </Dialog>
