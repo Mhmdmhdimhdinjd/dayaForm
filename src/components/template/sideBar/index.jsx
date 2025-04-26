@@ -32,7 +32,8 @@ export default function NestedList() {
     userss: true,
     dashboard: false,
     management: false,
-    security: false
+    security: false,
+    news:false
   });
 
   const handleClick = (key) => {
@@ -131,7 +132,7 @@ export default function NestedList() {
 
         <Collapse in={open.users} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton sx={{ pr: 4 }}>
               <ListItemIcon>
                 <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
               </ListItemIcon>
@@ -170,12 +171,35 @@ export default function NestedList() {
                   <ListItemText primary="امنیت" />
                 </ListItemButton>
 
-                <ListItemButton sx={{ pl: 4 }}>
+                <ListItemButton onClick={() => handleClick('news')} sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
                   </ListItemIcon>
-                  <ListItemText primary="اخبار" />
+                  <ListItemText selected={open.news} primary="اخبار" />
                 </ListItemButton>
+
+                <Collapse in={open.news} timeout="auto" unmountOnExit>
+                
+                <List>
+
+                <ListItemButton sx={{ pr: 4 }}>
+                  <ListItemIcon>
+                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="اعلانات" />
+                </ListItemButton>
+
+                <ListItemButton sx={{ pr: 4 }}>
+                  <ListItemIcon>
+                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="ارتباطات" />
+                </ListItemButton>
+
+                </List>
+                
+                </Collapse>
+
               </List>
             </Collapse>
           </List>
