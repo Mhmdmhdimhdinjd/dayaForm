@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent ,waitFor } from '@testing-library/react';
 import Form from '../index'; // مسیر فایل Form.jsx شما
 import { ThemeProvider } from '@/src/lib/ThemeContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -194,22 +194,8 @@ describe('Form Component', () => {
     });
 
 
+    // تست وارد کردن تاریخ تولد
     test('allows selecting birth date', () => {
-        render(
-          <QueryClientProvider client={queryClient}>
-            <ThemeProvider>
-              <Form />
-            </ThemeProvider>
-          </QueryClientProvider>
-        );
-        const datePicker = screen.getByLabelText(/تاریخ تولد/i);
-        fireEvent.change(datePicker, { target: { value: '1400/01/01' } });
-        expect(datePicker).toHaveValue('1400/01/01');
-      });
-
-
-    // تست ۴: بررسی اعتبارسنجی
-    test('shows validation error when province is not selected', async () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider>
@@ -217,12 +203,122 @@ describe('Form Component', () => {
                 </ThemeProvider>
             </QueryClientProvider>
         );
+        const datePicker = screen.getByLabelText(/تاریخ تولد/i);
+        fireEvent.change(datePicker, { target: { value: '1400/01/01' } });
+        expect(datePicker).toHaveValue('1400/01/01');
+    });
 
+    // تست انتخاب چک‌باکس‌های نوع همکاری
+    test('allows selecting job type checkboxes', () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <Form />
+                </ThemeProvider>
+            </QueryClientProvider>
+        );
+        const fullTimeCheckbox = screen.getByLabelText(/تمام وقت/i);
+        fireEvent.click(fullTimeCheckbox);
+        expect(fullTimeCheckbox).toBeChecked();
+
+        const partTimeCheckbox = screen.getByLabelText(/پاره وقت/i);
+        fireEvent.click(partTimeCheckbox);
+        expect(partTimeCheckbox).toBeChecked();
+    });
+
+    // تست تغییر بین کد ملی و شناسه اقتصادی
+    test('allows switching between national and economic ID types', () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <Form />
+                </ThemeProvider>
+            </QueryClientProvider>
+        );
+        const nationalButton = screen.getByText(/حقیقی/i);
+        const economicButton = screen.getByText(/حقوقی/i);
+
+        fireEvent.click(economicButton);
+        expect(screen.getByLabelText(/شناسه اقتصادی \(۱۲ رقم\)/i)).toBeInTheDocument();
+
+        fireEvent.click(nationalButton);
+        expect(screen.getByLabelText(/کد ملی \(۱۰ رقم\)/i)).toBeInTheDocument();
+    });
+
+
+    // تست وارد کردن کد ملی
+    test('allows entering national ID', () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <Form />
+                </ThemeProvider>
+            </QueryClientProvider>
+        );
+        const idInput = screen.getByLabelText(/کد ملی \(۱۰ رقم\)/i);
+        fireEvent.change(idInput, { target: { value: '1234567890' } });
+        expect(idInput).toHaveValue('1234567890');
+    });
+
+    // تست خطای اعتبارسنجی برای کد ملی نامعتبر
+    test('shows validation error for invalid national ID', async () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <Form />
+                </ThemeProvider>
+            </QueryClientProvider>
+        );
+        const idInput = screen.getByLabelText(/کد ملی \(۱۰ رقم\)/i);
+        fireEvent.change(idInput, { target: { value: '123' } }); // کمتر از 10 رقم
         const submitButton = screen.getByText(/ثبت اطلاعات/i);
         fireEvent.click(submitButton);
-
-        const errorMessage = await screen.findByText(/استان اجباری است/i);
+        const errorMessage = await screen.findByText(/کد ملی باید ۱۰ رقم باشد/i);
         expect(errorMessage).toBeInTheDocument();
     });
 
+    // تست وارد کردن رزومه
+    test('allows entering resume text', () => {
+        render(
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider>
+                    <Form />
+                </ThemeProvider>
+            </QueryClientProvider>
+        );
+        const resumeEditor = screen.getByLabelText(/رزومه کامل/i);
+        fireEvent.change(resumeEditor, { target: { value: 'این یک رزومه نمونه است.' } });
+        expect(resumeEditor).toHaveValue('این یک رزومه نمونه است.');
+    });
+
 });
+
+
+describe('Form Component Validation', () => {
+    test('shows all validation errors when submitting empty form', async () => {
+      render(
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <Form />
+          </ThemeProvider>
+        </QueryClientProvider>
+      );
+  
+      // پیدا کردن و کلیک کردن دکمه ارسال
+      const submitButton = screen.getByText(/ثبت اطلاعات/i);
+      fireEvent.click(submitButton);
+  
+      // بررسی پیام‌های خطا برای همه فیلدها
+      await waitFor(() => {
+        expect(screen.getByText(/نام اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/نام خانوادگی اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/استان اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/شهر اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/کد پستی اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/تاریخ اجباری است/i)).toBeInTheDocument();
+        expect(screen.getByText(/حداقل یکی از موارد باید انتخاب شود/i)).toBeInTheDocument(); // برای چک‌باکس‌ها
+        expect(screen.getByText(/کد ملی الزامی است/i)).toBeInTheDocument();
+        expect(screen.getByText(/رزومه اجباری است/i)).toBeInTheDocument();
+      });
+    });
+  });

@@ -628,13 +628,14 @@ const Form = () => {
           </Grid>
 
           <FormControl fullWidth>
-            <Label labelText="رزومه کامل" />
+            <Label labelText="رزومه کامل" htmlFor='resume'/>
             <Controller
               control={control}
               name="resume"
               render={({ field }) => (
                 <JoditEditor
                   {...field}
+                  id='resume'
                   config={firstconfig}
                   value={field.value}
                   tabIndex={1}

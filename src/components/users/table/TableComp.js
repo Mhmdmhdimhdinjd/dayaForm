@@ -247,7 +247,7 @@ const TableComp = ({ data }) => {
               <Typography paragraph>شغل پاره وقت: {selectedItem.part_time_job ? 'بله' : 'خیر'}</Typography>
               <Box>
                 <Typography paragraph>رزومه:</Typography>
-                <JoditEditor config={secondconfig} value={selectedItem.resume} />
+                <JoditEditor  config={secondconfig} value={selectedItem.resume} />
               </Box>
             </Box>
           )}
