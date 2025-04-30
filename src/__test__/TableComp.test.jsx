@@ -1,7 +1,8 @@
 import React, { act } from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import TableComp from '../TableComp';
-import { ThemeProvider } from '@/src/lib/ThemeContext'; import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import TableComp from '../components/template/table/TableComp';
+import { ThemeProvider } from '@/src/lib/ThemeContext'; 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
@@ -47,7 +48,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست رندر جدول با داده
     test('renders table with headers and data', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -74,7 +74,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست وقتی داده‌ای وجود نداره
     test('renders empty state when no data is provided', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -90,7 +89,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست دکمه مشاهده
     test('opens dialog when view button is clicked', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -109,11 +107,10 @@ describe('TableComp', () => {
         await waitFor(() => {
             expect(screen.getByRole('dialog')).toBeInTheDocument();
             expect(screen.getByText(/جزئیات/i)).toBeInTheDocument();
-          });
+        });
     });
 
 
-    // تست بستن دیالوگ
     test('closes dialog when close button is clicked', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -139,7 +136,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست دکمه حذف
     test('calls deleteUser when delete button is clicked', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -163,7 +159,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست خروجی اکسل
     test('exports data to excel when export button is clicked', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -184,7 +179,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست غیرفعال بودن دکمه اکسل وقتی داده‌ای نیست
     test('disables export button when no data is provided', async () => {
         render(
             <QueryClientProvider client={queryClient}>
@@ -199,7 +193,6 @@ describe('TableComp', () => {
     });
 
 
-    // تست JoditEditor در حالت فقط خواندنی
     test('renders JoditEditor in readonly mode', async () => {
         render(
             <QueryClientProvider client={queryClient}>

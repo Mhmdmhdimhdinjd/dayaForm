@@ -6,7 +6,7 @@ import { useThemeContext } from '@/src/lib/ThemeContext';
 import { Box } from '@mui/material';
 import useLoadUser from '../hooks/useLoadUser';
 import Footer from '../components/template/footer/index';
-
+import{ Toaster } from 'react-hot-toast';
 
 
 const Home = () => {
@@ -38,6 +38,7 @@ const Home = () => {
       </div>
 
       <NestedList />
+      <Toaster />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 // src/hooks/useDeleteUser.js
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const deleteUser = async (id) => {
   const response = await axios.delete(`http://localhost:3000/api?id=${id}`);
@@ -17,7 +18,7 @@ const useDeleteUser = () => {
       console.error('Error deleting user:', error);
     },
     onSuccess: () => {
-      console.log('User deleted successfully');
+      toast.error("کاربر با موفقیت حذف شد.")
       queryClient.invalidateQueries(['users']);
     },
   });

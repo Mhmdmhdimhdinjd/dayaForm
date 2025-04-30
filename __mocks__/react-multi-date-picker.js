@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-const MockDatePicker = ({ onChange, value, inputId, ...props }) => {
-  const validProps = { ...props };
-  delete validProps.calendarPosition; // حذف پراپ غیرمعتبر
+const MockDatePicker = () => {
+
   return (
-    <input
-      id={inputId} // استفاده از inputId به جای id
-      value={value || ''}
-      onChange={(e) => onChange(e.target.value)}
-      {...validProps}
-    />
+    <form>
+      <label htmlFor="datepicker">تاریخ تولد*</label>
+
+      <input
+        id='datepicker'        
+      />
+    </form>
   );
 };
 

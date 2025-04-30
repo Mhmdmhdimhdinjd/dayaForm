@@ -38,18 +38,18 @@ const lightTheme = createTheme({
         },
       },
     },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiInputBase-root': {
-            transition: 'background-color 0.3s ease, color 0.3s ease',
-          },
-          '& .MuiInputLabel-root': {
-            transition: 'color 0.3s ease',
-          },
-        },
-      },
-    },
+    // MuiTextField: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiInputBase-root': {
+    //         transition: 'background-color 0.3s ease, color 0.3s ease',
+    //       },
+    //       '& .MuiInputLabel-root': {
+    //         transition: 'color 0.3s ease',
+    //       },
+    //     },
+    //   },
+    // },
     MuiButton: {
       styleOverrides: {
         root: {

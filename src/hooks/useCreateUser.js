@@ -1,9 +1,8 @@
-// src/hooks/useCreateUser.js
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const createUser = async (newUserData) => {
-  console.log('nnnnn',newUserData)
   const response = await axios.post('http://localhost:3000/api', newUserData);
   return response.data.user;
 };
@@ -18,7 +17,7 @@ const useCreateUser = () => {
       console.error('Error creating user:', error);
     },
     onSuccess: () => {
-      console.log('User created successfully');
+      toast.success('کاربر با موفقیت ایجاد شد!')
       queryClient.invalidateQueries(['users']);
     },
   });

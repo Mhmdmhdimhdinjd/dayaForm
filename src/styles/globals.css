@@ -1,22 +1,27 @@
 @font-face {
   font-family: gandom;
-  src: url(../public/Fonts/gandom-font/Gandom.ttf);
+  src: url(../../public/Fonts/gandom-font/Gandom.ttf);
 }
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: gandom !important;
-  text-align: right !important;
   text-decoration: none;
 }
 
 body {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
-.rmdp-container .rmdp-shadow{
+.MuiTypography-root,
+.MuiTableCell-root {
+  text-align: right !important;
+}
+.MuiTableCell-root:nth-last-child(1){
   text-align: center !important;
+}
+.muirtl-ea2w56-MuiFormLabel-root-MuiInputLabel-root.Mui-error {
+  color: #f44336 !important;
 }

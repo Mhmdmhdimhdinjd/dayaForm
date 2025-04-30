@@ -22,9 +22,7 @@ import { useThemeContext } from '@/src/lib/ThemeContext';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme === 'dark' ? alpha(theme.palette.common.white, 0.15) : alpha(theme.palette.common.black, 0.15),
   '&:hover': {
-    backgroundColor: theme === 'dark' ? alpha(theme.palette.common.white, 0.25) : alpha(theme.palette.common.black, 0.25),
   },
   marginLeft: 0,
   width:'fit-content',
@@ -57,6 +55,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       '&:focus': {
         width: '20ch',
       },
+    },
+    "&::placeholder": {
+      color:theme.palette.mode === 'light' && "rgb(106, 106, 106)",
     },
   },
 }));
@@ -99,7 +100,7 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
                     boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
                     gap: 1
                   }}
-                  src="https://mhmdmhdimhdinjd.github.io/AdvancedForm/assets/%D8%A8%D8%B1%D9%86%D8%AC%20%D9%86%DB%8C%20%D9%86%DB%8C%202-DRoyfaGZ.jpg"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-FuNTRMOa9731WMn4gdr8oSwSGBg3EepvA&s"
                   alt="profile"
                 />
               </Badge>

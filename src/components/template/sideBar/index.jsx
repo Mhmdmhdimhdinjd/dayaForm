@@ -1,31 +1,30 @@
-import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import PanoramaFishEyeIcon from '@mui/icons-material/PanoramaFishEye';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
-import { Avatar, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useThemeContext } from '@/src/lib/ThemeContext';
-import Drawer from '@mui/material/Drawer';
+import * as React from "react";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import PanoramaFishEyeIcon from "@mui/icons-material/PanoramaFishEye";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
+import { Avatar, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { useThemeContext } from "@/src/lib/ThemeContext";
+import Drawer from "@mui/material/Drawer";
 import { CiCircleInfo } from "react-icons/ci";
-
 
 export default function NestedList() {
   const { theme, isOpen, toggleOffcanvas } = useThemeContext();
   const muiTheme = useTheme();
-  const isSmallScreen = useMediaQuery(muiTheme.breakpoints.down('sm'));
-  const isDark = theme === 'dark';
+  const isSmallScreen = useMediaQuery(muiTheme.breakpoints.down("sm"));
+  const isDark = theme === "dark";
 
   const [open, setOpen] = React.useState({
     users: true,
@@ -33,7 +32,7 @@ export default function NestedList() {
     dashboard: false,
     management: false,
     security: false,
-    news:false
+    news: false,
   });
 
   const handleClick = (key) => {
@@ -49,36 +48,57 @@ export default function NestedList() {
         boxShadow: isSmallScreen ? 0 : 3,
         px: 1,
         width: 200,
-        minHeight: isSmallScreen ? 'auto' : '100vh',
-        bgcolor: isDark ? 'grey.900' : 'background.paper',
+        minHeight: isSmallScreen ? "auto" : "100vh",
+        bgcolor: isDark ? "grey.900" : "background.paper",
       }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <Grid container sx={{ alignItems: 'center' }}>
-        <Grid size={3}
+      <Grid container sx={{ alignItems: "center" }}>
+        <Grid
+          size={3}
           sx={{
-            ml: 'auto',
+            ml: "auto",
           }}
         >
-         <CiCircleInfo size={24} />
+          <CiCircleInfo size={24} />
         </Grid>
+
         <Grid size={9}>
-          <img style={{ width: '100%', margin: 'auto' }} src="https://dayatadbir.com/wp-content/uploads/2024/02/DayaTadbir_Logo_White.png" alt="" />
+          <Box
+            component="img"
+            src="https://dayatadbir.com/wp-content/uploads/2024/02/DayaTadbir_Logo_White.png"
+            alt="DayaTadbir Logo"
+            sx={{
+              width: "100%",
+              margin: "auto",
+              filter: "drop-shadow(0 0  3px rgba(0, 0, 0, 0.8))",
+            }}
+          />
         </Grid>
       </Grid>
 
-      <ListItemButton selected={open.dashboard} sx={{ flexDirection: 'row-reverse' }} onClick={() => handleClick('dashboard')}>
+      <ListItemButton
+        selected={open.dashboard}
+        sx={{ flexDirection: "row-reverse" }}
+        onClick={() => handleClick("dashboard")}
+      >
         <ListItemIcon>
-          <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+          <PanoramaFishEyeIcon
+            sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+          />
         </ListItemIcon>
         <ListItemText primary="مدیریت" />
-        <Avatar sx={{
-          bgcolor: '#EF5350',
-          width: 30,
-          height: 30,
-          fontSize: 12
-        }}>5</Avatar>
+        <Avatar
+          sx={{
+            bgcolor: "#EF5350",
+            width: 30,
+            height: 30,
+            fontSize: 12,
+          }}
+        >
+          5
+        </Avatar>
         {open.dashboard ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
@@ -87,14 +107,16 @@ export default function NestedList() {
           <ListItemButton
             sx={{
               pl: 4,
-              color: 'white',
-              backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
-              '&:hover': {
-                backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
+              color: "white",
+              backgroundImage: "linear-gradient(to right, darkviolet, violet)",
+              "&:hover": {
+                backgroundImage:
+                  "linear-gradient(to right, darkviolet, violet)",
               },
-            }}>
+            }}
+          >
             <ListItemIcon>
-              <PanoramaFishEyeIcon sx={{ color: 'white', fontSize: '1rem' }} />
+              <PanoramaFishEyeIcon sx={{ color: "white", fontSize: "1rem" }} />
             </ListItemIcon>
             <ListItemText primary="جزییات" />
           </ListItemButton>
@@ -103,28 +125,39 @@ export default function NestedList() {
 
       <List
         subheader={
-          <ListSubheader sx={{ textAlign: 'right', color: isDark ? 'white' : 'black' }} component="div" id="nested-list-subheader">
+          <ListSubheader
+            sx={{ textAlign: "right", color: isDark ? "white" : "black" , bgcolor:  isDark &&'#212121' , }}
+            component="div"
+            id="nested-list-subheader"
+          >
             بخش‌های سامانه
           </ListSubheader>
         }
       >
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <LocalGroceryStoreOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <LocalGroceryStoreOutlinedIcon
+              sx={{ color: isDark ? "white" : "black" }}
+            />
           </ListItemIcon>
           <ListItemText primary="فروشگاه" />
         </ListItemButton>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <SchoolOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <SchoolOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
           </ListItemIcon>
           <ListItemText primary="آموزش" />
         </ListItemButton>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }} onClick={() => handleClick('users')}>
+        <ListItemButton
+          sx={{ flexDirection: "row-reverse" }}
+          onClick={() => handleClick("users")}
+        >
           <ListItemIcon>
-            <PersonOutlineOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <PersonOutlineOutlinedIcon
+              sx={{ color: isDark ? "white" : "black" }}
+            />
           </ListItemIcon>
           <ListItemText selected={open.users} primary="کاربران" />
           {open.users ? <ExpandLess /> : <ExpandMore />}
@@ -134,14 +167,22 @@ export default function NestedList() {
           <List component="div" disablePadding>
             <ListItemButton sx={{ pr: 4 }}>
               <ListItemIcon>
-                <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                <PanoramaFishEyeIcon
+                  sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                />
               </ListItemIcon>
               <ListItemText primary="لیست" />
             </ListItemButton>
 
-            <ListItemButton selected={open.userss} sx={{ flexDirection: 'row-reverse' }} onClick={() => handleClick('userss')}>
+            <ListItemButton
+              selected={open.userss}
+              sx={{ flexDirection: "row-reverse" }}
+              onClick={() => handleClick("userss")}
+            >
               <ListItemIcon>
-                <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                <PanoramaFishEyeIcon
+                  sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                />
               </ListItemIcon>
               <ListItemText primary="مشاهده" />
               {open.userss ? <ExpandLess /> : <ExpandMore />}
@@ -152,97 +193,132 @@ export default function NestedList() {
                 <ListItemButton
                   sx={{
                     pl: 4,
-                    color: 'white',
-                    backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
-                    '&:hover': {
-                      backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
+                    color: "white",
+                    backgroundImage:
+                      "linear-gradient(to right, darkviolet, violet)",
+                    "&:hover": {
+                      backgroundImage:
+                        "linear-gradient(to right, darkviolet, violet)",
                     },
-                  }}>
+                  }}
+                >
                   <ListItemIcon>
-                    <PanoramaFishEyeIcon sx={{ color: 'white', fontSize: '1rem' }} />
+                    <PanoramaFishEyeIcon
+                      sx={{ color: "white", fontSize: "1rem" }}
+                    />
                   </ListItemIcon>
                   <ListItemText primary="جزییات" />
                 </ListItemButton>
 
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>
-                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                    <PanoramaFishEyeIcon
+                      sx={{
+                        fontSize: "1rem",
+                        color: isDark ? "white" : "black",
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText primary="امنیت" />
                 </ListItemButton>
 
-                <ListItemButton onClick={() => handleClick('news')} sx={{ pl: 4 }}>
+                <ListItemButton
+                  onClick={() => handleClick("news")}
+                  sx={{ pl: 4 }}
+                >
                   <ListItemIcon>
-                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+                    <PanoramaFishEyeIcon
+                      sx={{
+                        fontSize: "1rem",
+                        color: isDark ? "white" : "black",
+                      }}
+                    />
                   </ListItemIcon>
                   <ListItemText selected={open.news} primary="اخبار" />
                 </ListItemButton>
 
                 <Collapse in={open.news} timeout="auto" unmountOnExit>
-                
-                <List>
+                  <List>
+                    <ListItemButton sx={{ pr: 4 }}>
+                      <ListItemIcon>
+                        <PanoramaFishEyeIcon
+                          sx={{
+                            fontSize: "1rem",
+                            color: isDark ? "white" : "black",
+                          }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary="اعلانات" />
+                    </ListItemButton>
 
-                <ListItemButton sx={{ pr: 4 }}>
-                  <ListItemIcon>
-                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="اعلانات" />
-                </ListItemButton>
-
-                <ListItemButton sx={{ pr: 4 }}>
-                  <ListItemIcon>
-                    <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
-                  </ListItemIcon>
-                  <ListItemText primary="ارتباطات" />
-                </ListItemButton>
-
-                </List>
-                
+                    <ListItemButton sx={{ pr: 4 }}>
+                      <ListItemIcon>
+                        <PanoramaFishEyeIcon
+                          sx={{
+                            fontSize: "1rem",
+                            color: isDark ? "white" : "black",
+                          }}
+                        />
+                      </ListItemIcon>
+                      <ListItemText primary="ارتباطات" />
+                    </ListItemButton>
+                  </List>
                 </Collapse>
-
               </List>
             </Collapse>
           </List>
         </Collapse>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <EmailOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <EmailOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
           </ListItemIcon>
           <ListItemText primary="ایمیل" />
         </ListItemButton>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <MessageOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <MessageOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
           </ListItemIcon>
           <ListItemText primary="پیام" />
         </ListItemButton>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <CalendarMonthOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <CalendarMonthOutlinedIcon
+              sx={{ color: isDark ? "white" : "black" }}
+            />
           </ListItemIcon>
           <ListItemText primary="تقویم" />
         </ListItemButton>
 
-        <ListItemButton sx={{ flexDirection: 'row-reverse' }}>
+        <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <NoteAltOutlinedIcon sx={{ color: isDark ? 'white' : 'black' }} />
+            <NoteAltOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
           </ListItemIcon>
           <ListItemText primary="تسک ها" />
         </ListItemButton>
 
         <List
           subheader={
-            <ListSubheader sx={{ textAlign: 'right', color: isDark ? 'white' : 'black' }} component="div" id="nested-list-subheader">
+            <ListSubheader
+              sx={{ textAlign: "right", color: isDark ? "white" : "black",bgcolor:  isDark &&'#212121' , }}
+              component="div"
+              id="nested-list-subheader"
+            >
               مدیریت
             </ListSubheader>
           }
         >
-          <ListItemButton selected={open.management} sx={{ flexDirection: 'row-reverse' }} onClick={() => handleClick('management')}>
+          <ListItemButton
+            selected={open.management}
+            sx={{ flexDirection: "row-reverse" }}
+            onClick={() => handleClick("management")}
+          >
             <ListItemIcon>
-              <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+              <PanoramaFishEyeIcon
+                sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+              />
             </ListItemIcon>
             <ListItemText primary="مدیریت" />
             {open.management ? <ExpandLess /> : <ExpandMore />}
@@ -253,23 +329,34 @@ export default function NestedList() {
               <ListItemButton
                 sx={{
                   pl: 4,
-                  color: 'white',
-                  backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
-                  '&:hover': {
-                    backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
+                  color: "white",
+                  backgroundImage:
+                    "linear-gradient(to right, darkviolet, violet)",
+                  "&:hover": {
+                    backgroundImage:
+                      "linear-gradient(to right, darkviolet, violet)",
                   },
-                }}>
+                }}
+              >
                 <ListItemIcon>
-                  <PanoramaFishEyeIcon sx={{ color: 'white', fontSize: '1rem' }} />
+                  <PanoramaFishEyeIcon
+                    sx={{ color: "white", fontSize: "1rem" }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="جزییات" />
               </ListItemButton>
             </List>
           </Collapse>
 
-          <ListItemButton selected={open.security} sx={{ flexDirection: 'row-reverse' }} onClick={() => handleClick('security')}>
+          <ListItemButton
+            selected={open.security}
+            sx={{ flexDirection: "row-reverse" }}
+            onClick={() => handleClick("security")}
+          >
             <ListItemIcon>
-              <PanoramaFishEyeIcon sx={{ fontSize: '1rem', color: isDark ? 'white' : 'black' }} />
+              <PanoramaFishEyeIcon
+                sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+              />
             </ListItemIcon>
             <ListItemText primary="امنیت" />
             {open.management ? <ExpandLess /> : <ExpandMore />}
@@ -280,20 +367,25 @@ export default function NestedList() {
               <ListItemButton
                 sx={{
                   pl: 4,
-                  color: 'white',
-                  backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
-                  '&:hover': {
-                    backgroundImage: 'linear-gradient(to right, darkviolet, violet)',
+                  color: "white",
+                  backgroundImage:
+                    "linear-gradient(to right, darkviolet, violet)",
+                  "&:hover": {
+                    backgroundImage:
+                      "linear-gradient(to right, darkviolet, violet)",
                   },
-                }}>
+                }}
+              >
                 <ListItemIcon>
-                  <PanoramaFishEyeIcon sx={{ color: 'white', fontSize: '1rem' }} />
+                  <PanoramaFishEyeIcon
+                    sx={{ color: "white", fontSize: "1rem" }}
+                  />
                 </ListItemIcon>
                 <ListItemText primary="جزییات" />
               </ListItemButton>
             </List>
           </Collapse>
-         </List>
+        </List>
       </List>
     </List>
   );
@@ -305,10 +397,10 @@ export default function NestedList() {
         open={isOpen}
         onClose={toggleOffcanvas}
         sx={{
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: 200,
-            boxSizing: 'border-box',
-            bgcolor: isDark ? 'grey.900' : 'background.paper',
+            boxSizing: "border-box",
+            bgcolor: isDark ? "grey.900" : "background.paper",
           },
         }}
       >

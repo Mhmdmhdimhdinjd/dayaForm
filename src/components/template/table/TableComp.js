@@ -1,5 +1,9 @@
-import { useMemo, useEffect, useState } from 'react';
-import { useReactTable, flexRender, getCoreRowModel } from '@tanstack/react-table';
+import { useMemo, useEffect, useState } from "react";
+import {
+  useReactTable,
+  flexRender,
+  getCoreRowModel,
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -19,27 +23,24 @@ import {
   IconButton,
   Grid,
   DialogContentText,
-} from '@mui/material';
-import { useThemeContext } from '@/src/lib/ThemeContext';
-import useDeleteUser from '@/src/hooks/useDeleteUser';
-import dynamic from 'next/dynamic';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
-import fa from '@/src/assets/fa.js';
-import CloseIcon from '@mui/icons-material/Close';
-import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
+} from "@mui/material";
+import { useThemeContext } from "@/src/lib/ThemeContext";
+import useDeleteUser from "@/src/hooks/useDeleteUser";
+import dynamic from "next/dynamic";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import fa from "@/src/assets/fa.js";
+import CloseIcon from "@mui/icons-material/Close";
+import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 
-const JoditEditor = dynamic(
-  () => import('jodit-react'),
-  {
-    ssr: false,
-    loading: () => <p>در حال بارگیری ویرایشگر...</p>,
-  }
-);
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+  loading: () => <p>در حال بارگیری ویرایشگر...</p>,
+});
 
 const TableComp = ({ data }) => {
   const { theme } = useThemeContext();
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
   const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
   const [isMounted, setIsMounted] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -73,32 +74,35 @@ const TableComp = ({ data }) => {
   const handleExportExcel = () => {
     const transformedData = data.map((item) => ({
       نام: item.first__name,
-      'نام خانوادگی': item.last__name,
-      'تاریخ تولد': item.date,
-      'نوع کاربر': item.idType === 'national' ? 'حقیقی' : 'حقوقی',
-      [item.idType === 'national' ? 'کدملی' : 'شناسه اقتصادی']: item.idNumber,
-      'شغل پاره‌وقت': item.part_time_job ? 'بله' : 'خیر',
-      'شغل تمام وقت': item.full_time_job ? 'بله' : 'خیر',
-      'کد پستی': item.postal_code,
+      "نام خانوادگی": item.last__name,
+      "تاریخ تولد": item.date,
+      "نوع کاربر": item.idType === "national" ? "حقیقی" : "حقوقی",
+      [item.idType === "national" ? "کدملی" : "شناسه اقتصادی"]: item.idNumber,
+      "شغل پاره‌وقت": item.part_time_job ? "بله" : "خیر",
+      "شغل تمام وقت": item.full_time_job ? "بله" : "خیر",
+      "کد پستی": item.postal_code,
       رزومه: item.resume,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(transformedData);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'users.xlsx');
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: "xlsx",
+      type: "array",
+    });
+    const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    saveAs(blob, "users.xlsx");
   };
 
   const secondconfig = useMemo(
     () => ({
-      language: 'fa',
+      language: "fa",
       i18n: { fa },
       readonly: true,
-      placeholder: 'متن نمایشی...',
+      placeholder: "متن نمایشی...",
       buttons: false,
-      theme: isDark ? 'dark' : 'default',
+      theme: isDark ? "dark" : "default",
     }),
     [isDark]
   );
@@ -106,40 +110,40 @@ const TableComp = ({ data }) => {
   const columns = useMemo(
     () => [
       {
-        id: 'first_name',
-        header: 'نام',
-        accessorKey: 'first__name',
+        id: "first_name",
+        header: "نام",
+        accessorKey: "first__name",
         cell: ({ row }) => row.original.first__name,
       },
       {
-        id: 'last_name',
-        header: 'نام خانوادگی',
-        accessorKey: 'last__name',
+        id: "last_name",
+        header: "نام خانوادگی",
+        accessorKey: "last__name",
         cell: ({ row }) => row.original.last__name,
       },
       {
-        id: 'postal_code',
-        header: 'کد پستی',
-        accessorKey: 'postal_code',
+        id: "postal_code",
+        header: "کد پستی",
+        accessorKey: "postal_code",
         cell: ({ row }) => row.original.postal_code,
       },
       {
-        id: 'full_time_job',
-        header: 'شغل تمام وقت',
-        accessorKey: 'full_time_job',
-        cell: ({ row }) => (row.original.full_time_job ? 'بله' : 'خیر'),
+        id: "full_time_job",
+        header: "شغل تمام وقت",
+        accessorKey: "full_time_job",
+        cell: ({ row }) => (row.original.full_time_job ? "بله" : "خیر"),
       },
       {
-        id: 'part_time_job',
-        header: 'شغل پاره وقت',
-        accessorKey: 'part_time_job',
-        cell: ({ row }) => (row.original.part_time_job ? 'بله' : 'خیر'),
+        id: "part_time_job",
+        header: "شغل پاره وقت",
+        accessorKey: "part_time_job",
+        cell: ({ row }) => (row.original.part_time_job ? "بله" : "خیر"),
       },
       {
-        id: 'actions',
-        header: 'عملیات',
+        id: "actions",
+        header: "عملیات",
         cell: ({ row }) => (
-          <Box display="flex" gap={1}>
+          <Box display="flex" gap={1} justifyContent='center'>
             <Button
               variant="contained"
               color="info"
@@ -156,7 +160,7 @@ const TableComp = ({ data }) => {
               onClick={() => handleOpen(row.original._id)}
               disabled={isDeleting}
             >
-              {isDeleting ? <CircularProgress size={20} /> : 'حذف'}
+              {isDeleting ? <CircularProgress size={20} /> : "حذف"}
             </Button>
           </Box>
         ),
@@ -176,15 +180,18 @@ const TableComp = ({ data }) => {
   }
 
   return (
-    <Box dir="rtl" sx={{ overflowX: 'auto' }}>
+    <Box dir="rtl" sx={{ overflowX: "auto" }}>
       <TableContainer component={Paper} sx={{ mt: 4 }}>
         <Table sx={{ minWidth: 700 }}>
-          <TableHead sx={{ bgcolor: isDark ? 'grey.800' : 'grey.100' }}>
+          <TableHead sx={{ bgcolor: isDark ? "grey.800" : "grey.100" }}>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableCell key={header.id} >
-                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  <TableCell key={header.id}>
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
@@ -196,14 +203,20 @@ const TableComp = ({ data }) => {
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
                     </TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} sx={{ textAlign: "center !important" }}>
+                <TableCell
+                  colSpan={columns.length}
+                  sx={{ textAlign: "center !important" }}
+                >
                   داده‌ای برای نمایش وجود ندارد
                 </TableCell>
               </TableRow>
@@ -229,7 +242,7 @@ const TableComp = ({ data }) => {
         maxWidth="md"
         PaperProps={{
           sx: {
-            bgcolor: isDark ? 'grey.800' : 'background.paper',
+            bgcolor: isDark ? "grey.800" : "background.paper",
           },
         }}
       >
@@ -239,7 +252,7 @@ const TableComp = ({ data }) => {
             aria-label="close"
             onClick={() => setModalOpen(false)}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               left: 8,
               top: 8,
               color: (theme) => theme.palette.grey[500],
@@ -252,71 +265,93 @@ const TableComp = ({ data }) => {
           {selectedItem && (
             <Box sx={{ p: 3 }}>
               <Grid container spacing={3}>
-
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>نام:</strong> {selectedItem.first__name || '-'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>نام:</strong> {selectedItem.first__name || "-"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>نام خانوادگی:</strong> {selectedItem.last__name || '-'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>نام خانوادگی:</strong>{" "}
+                    {selectedItem.last__name || "-"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>تاریخ تولد:</strong> {selectedItem.date || '-'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>تاریخ تولد:</strong> {selectedItem.date || "-"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>کد پستی:</strong> {selectedItem.postal_code || '-'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>کد پستی:</strong> {selectedItem.postal_code || "-"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>شغل تمام وقت:</strong> {selectedItem.full_time_job ? 'بله' : 'خیر'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>شغل تمام وقت:</strong>{" "}
+                    {selectedItem.full_time_job ? "بله" : "خیر"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12, mobileL: 6, md: 4 }}>
-                  <Typography variant="body1" sx={{
-                    whiteSpace: 'pre-line',
-                    wordBreak: 'break-word'
-                  }}>
-                    <strong>شغل پاره وقت:</strong> {selectedItem.part_time_job ? 'بله' : 'خیر'}
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      whiteSpace: "pre-line",
+                      wordBreak: "break-word",
+                    }}
+                  >
+                    <strong>شغل پاره وقت:</strong>{" "}
+                    {selectedItem.part_time_job ? "بله" : "خیر"}
                   </Typography>
                 </Grid>
 
                 <Grid item size={{ xs: 12 }}>
-                  <Box sx={{
-                    mt: 2,
-                    '& .jodit-wysiwyg': {
-                      whiteSpace: 'pre-wrap',
-                      wordBreak: 'break-word',
-                      fontSize: 'inherit',
-                      fontFamily: 'inherit'
-                    }
-                  }}>
+                  <Box
+                    sx={{
+                      mt: 2,
+                      "& .jodit-wysiwyg": {
+                        whiteSpace: "pre-wrap",
+                        wordBreak: "break-word",
+                        fontSize: "inherit",
+                        fontFamily: "inherit",
+                      },
+                    }}
+                  >
                     <Typography variant="body1" paragraph>
                       <strong>رزومه:</strong>
                     </Typography>
@@ -324,9 +359,9 @@ const TableComp = ({ data }) => {
                       config={{
                         ...secondconfig,
                         readonly: true,
-                        toolbar: false
+                        toolbar: false,
                       }}
-                      value={selectedItem.resume || 'رزومه ای موجود نیست'}
+                      value={selectedItem.resume || "رزومه ای موجود نیست"}
                     />
                   </Box>
                 </Grid>
@@ -346,13 +381,18 @@ const TableComp = ({ data }) => {
         aria-labelledby="alert-dialog-title"
         PaperProps={{
           sx: {
-            borderRadius: '12px',
-            minWidth: '400px'
-          }
+            borderRadius: "12px",
+            minWidth: "400px",
+          },
         }}
       >
         <DialogTitle id="alert-dialog-title" sx={{ py: 3 }}>
-          <Box display="flex" alignItems="center" gap={1}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="right"
+            gap={1}
+          >
             <WarningAmberRoundedIcon color="warning" fontSize="large" />
             <span>تأیید حذف کاربر</span>
           </Box>
@@ -362,7 +402,7 @@ const TableComp = ({ data }) => {
           <DialogContentText>
             آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟
             <br />
-            <strong>این عمل غیرقابل بازگشت است!</strong>
+            <strong>!این عمل غیرقابل بازگشت است</strong>
           </DialogContentText>
         </DialogContent>
 
@@ -372,8 +412,8 @@ const TableComp = ({ data }) => {
             color="inherit"
             variant="outlined"
             sx={{
-              minWidth: '120px',
-              '&:hover': { backgroundColor: 'action.hover' }
+              minWidth: "120px",
+              "&:hover": { backgroundColor: "action.hover" },
             }}
           >
             انصراف
@@ -384,9 +424,9 @@ const TableComp = ({ data }) => {
             variant="contained"
             autoFocus
             sx={{
-              minWidth: '120px',
-              bgcolor: 'error.main',
-              '&:hover': { bgcolor: 'error.dark' }
+              minWidth: "120px",
+              bgcolor: "error.main",
+              "&:hover": { bgcolor: "error.dark" },
             }}
           >
             !حذف
