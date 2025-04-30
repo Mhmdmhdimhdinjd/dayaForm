@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <AppWrapper>
-            <Component {...pageProps} />
+            <Component {...pageProps  } />
           </AppWrapper>
         </ThemeProvider>
       </QueryClientProvider>
