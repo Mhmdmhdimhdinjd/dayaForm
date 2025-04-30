@@ -221,7 +221,10 @@ const Form = () => {
   const handleTypeChange = (type) => {
     setValue("idType", type);
     setValue("idNumber", "");
-    trigger("idNumber");
+    if (errors) {
+      console.log(errors);
+      trigger("idNumber");
+    }
   };
 
   const full_time_jobValue = watch("full_time_job");
@@ -386,7 +389,16 @@ const Form = () => {
                   />
                 )}
               />
-              <Typography color="error" sx={{ minHeight: "24px", mt: 1 }}>
+              <Typography
+                color="error"
+                sx={{
+                  fontSize: "0.75rem",
+                  lineHeight: "1.66",
+                  fontWeight: 400,
+                  ml: 2,
+                  mt: 0.5,
+                }}
+              >
                 {errors.Province?.message}
               </Typography>
             </FormControl>
@@ -423,7 +435,16 @@ const Form = () => {
                   />
                 )}
               />
-              <Typography color="error" sx={{ minHeight: "24px", mt: 1 }}>
+              <Typography
+                color="error"
+                sx={{
+                  fontSize: "0.75rem",
+                  lineHeight: "1.66",
+                  fontWeight: 400,
+                  ml: 2,
+                  mt: 0.5,
+                }}
+              >
                 {errors.city?.message}
               </Typography>
             </FormControl>

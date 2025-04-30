@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <title>دایا تدبیر</title>
-        {/* <link rel="icon" href='@/public/favicon.ico' /> */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
 
       </Head>
