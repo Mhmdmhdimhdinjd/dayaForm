@@ -5,13 +5,13 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#7E57C2', // رنگ بنفش از فرم
+      main: '#7E57C2',
     },
     secondary: {
-      main: '#7E57C2', // رنگ بنفش روشن‌تر
+      main: '#7E57C2',
     },
     background: {
-      default: '#ffffff',
+      default: '#f0f2f5',
       paper: '#ffffff',
     },
     text: {
@@ -24,29 +24,6 @@ const lightTheme = createTheme({
     fontFamily: '"gandom", sans-serif',
   },
   components: {
-    MuiTable: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#ffffff',
-          transition: 'background-color 0.3s ease, color 0.3s ease',
-        },
-      },
-    },
-    MuiTableCell: {
-      styleOverrides: {
-        root: {
-          color: '#000000',
-          transition: 'color 0.3s ease',
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          transition: 'background-color 0.3s ease, color 0.3s ease',
-        },
-      },
-    },
     MuiListItemButton: {
       styleOverrides: {
         root: {

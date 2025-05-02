@@ -306,7 +306,7 @@ export default function NestedList() {
         <List
           subheader={
             <ListSubheader
-              sx={{ textAlign: "right", color: isDark ? "white" : muiTheme.palette.text.disabled,bgcolor:  isDark &&'#212121' , }}
+              sx={{ textAlign: "right", color: muiTheme.palette.text.disabled,bgcolor:  isDark &&'#212121' , }}
               component="div"
               id="nested-list-subheader"
             >

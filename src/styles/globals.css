@@ -83,11 +83,6 @@
   font-family: Vazir !important;
   text-decoration: none;
 }
-
-body {
-  background-color: #fafafa;
-}
-
 .MuiTypography-root,
 .MuiTableCell-root {
   text-align: right !important;

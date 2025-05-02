@@ -45,7 +45,7 @@ const CssTextField = styled(
   "& .MuiOutlinedInput-root": {
     borderRadius: "6px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#0000003B",
+      borderColor: theme.palette.mode=== 'light' ? "#0000003B" : '#fff',
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.secondary.main,
@@ -65,7 +65,8 @@ const CssTextFieldNationalcode = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     borderRadius: "4px 0 0 4px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#0000003B",
+      borderRight: 0,
+      borderColor:  theme.palette.mode=== 'light' ? "#0000003B" : '#fff',
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.secondary.main,
@@ -238,7 +239,6 @@ const Form = () => {
     [isDark]
   );
 
-  // const [dates, setDates] = useState(undefined);
 
   const cacheRtl = createCache({
     key: 'muirtl',
@@ -620,7 +620,7 @@ const Form = () => {
           <Grid size={{ xs: 12, Laptop: 6, LaptopL: 4, lg: 3 }}>
             <FormControl fullWidth component="fieldset">
               <Label labelText="نوع همکاری*" />
-              <FormGroup row sx={{ gap: 3, ml: 4 }}>
+              <FormGroup row sx={{ gap: 3, ml: 4 , mt:-1.5}}>
                 <FormControlLabel
                   control={
                     <Controller

@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Button,
+  Avatar,
 } from "@mui/material";
 import { HiOutlineBell, HiOutlineSearch } from "react-icons/hi";
 import { TbApps } from "react-icons/tb";
@@ -43,7 +44,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: theme.palette.mode === "light" ? "rgb(0, 0, 0)" : '#fffff',
+  color: theme.palette.mode === "light" ? "rgb(0, 0, 0)" : "#fffff",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingRight: `calc(1em + ${theme.spacing(4)})`,
@@ -52,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
-        width: "20ch",
+        width: "18ch",
       },
     },
     "&::placeholder": {
@@ -73,20 +74,24 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
           bgcolor: theme === "dark" ? "grey.900" : "white",
           boxShadow: 2,
           m: 1,
-          borderRadius: 2,
+          borderRadius: 1.5,
           width: "auto",
         }}
       >
         {!onsearch ? (
           <Toolbar>
-            <IconButton edge="start">
-              <Badge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant="dot"
-                color="success"
-              >
-                <img
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+              color="success"
+              sx={{
+                "& .MuiBadge-badge": {
+                  border: "2px solid white",
+                },
+              }}
+            >
+              {/* <img
                   style={{
                     width: "2.5rem",
                     borderRadius: "50%",
@@ -96,9 +101,13 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
                   }}
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-FuNTRMOa9731WMn4gdr8oSwSGBg3EepvA&s"
                   alt="profile"
-                />
-              </Badge>
-            </IconButton>
+                /> */}
+
+              <Avatar
+                alt="Remy Sharp"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-FuNTRMOa9731WMn4gdr8oSwSGBg3EepvA&s"
+              />
+            </Badge>
 
             <IconButton>
               <HiOutlineBell
@@ -184,7 +193,10 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
               }}
             >
               <SearchIconWrapper>
-                <HiOutlineSearch size={20} color={theme === "dark" ? "white" : "black"} />
+                <HiOutlineSearch
+                  size={20}
+                  color={theme === "dark" ? "white" : "black"}
+                />
               </SearchIconWrapper>
               <StyledInputBase
                 fullWidth
