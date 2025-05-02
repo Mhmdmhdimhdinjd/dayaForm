@@ -24,6 +24,13 @@ import {
   Grid,
   DialogContentText,
 } from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
+import LocalPostOfficeIcon from "@mui/icons-material/LocalPostOffice";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import SettingsIcon from "@mui/icons-material/Settings";
+import NumbersIcon from "@mui/icons-material/Numbers";
 import { useThemeContext } from "@/src/lib/ThemeContext";
 import useDeleteUser from "@/src/hooks/useDeleteUser";
 import dynamic from "next/dynamic";
@@ -113,43 +120,101 @@ const TableComp = ({ data }) => {
 
   const columns = useMemo(
     () => [
-      {
-        header: 'ردیف',
+      { id:'number',
+        header: (
+          <Box display="flex" alignItems="center" gap={0.5}>
+          <NumbersIcon fontSize="small" />
+          <span>ردیف</span>
+        </Box>
+        ),
         cell: ({ row }) => <span>{row.index + 1}</span>,
       },
       {
         id: "first_name",
-        header: "نام",
+        header: (
+          <Box gap={2}  display='flex' alignItems='center'> 
+          <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+        <Box width='100%' display="flex" alignItems="center" gap={0.5}>
+            <PersonIcon fontSize="small" />
+            <span>نام</span>
+          </Box>
+          </Box>
+
+        ),
         accessorKey: "first__name",
-        cell: ({ row }) => row.original.first__name,
+        cell: ({ row }) => <Typography>{row.original.first__name}</Typography>,
       },
       {
         id: "last_name",
-        header: "نام خانوادگی",
+        header: (
+          <Box gap={2}  display='flex' alignItems='center'> 
+            <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+          <Box width='100%'display="flex" alignItems="center" gap={0.5}>
+            <FamilyRestroomIcon fontSize="small" />
+            <span>نام خانوادگی</span>
+          </Box>
+          </Box>
+
+        ),
         accessorKey: "last__name",
-        cell: ({ row }) => row.original.last__name,
+        cell: ({ row }) => <Typography>{ row.original.last__name}</Typography>,
       },
       {
         id: "postal_code",
-        header: "کد پستی",
+        header: (
+          <Box gap={2}  display='flex' alignItems='center'> 
+            <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+          <Box width='100%' display="flex" alignItems="center" gap={0.5}>
+            <LocalPostOfficeIcon fontSize="small" />
+            <span>کد پستی</span>
+          </Box>
+          </Box>
+
+        ),
         accessorKey: "postal_code",
-        cell: ({ row }) => row.original.postal_code,
+        cell: ({ row }) =><Typography> {row.original.postal_code} </Typography>,
       },
       {
         id: "full_time_job",
-        header: "شغل تمام وقت",
+        header:(
+          <Box gap={2}  display='flex' alignItems='center'> 
+            <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+          <Box width='100%' display="flex" alignItems="center" gap={0.5}>
+          <WorkHistoryIcon fontSize="small" />
+          <span>شغل تمام وقت</span>
+        </Box>
+        </Box>
+
+        ),
         accessorKey: "full_time_job",
-        cell: ({ row }) => (row.original.full_time_job ? "بله" : "خیر"),
+        cell: ({ row }) => <Typography> {row.original.full_time_job ? "بله" : "خیر"}</Typography>,
       },
       {
         id: "part_time_job",
-        header: "شغل پاره وقت",
+        header: (
+          <Box gap={2} display='flex' alignItems='center'> 
+            <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+          <Box width='100%' display="flex" alignItems="center" gap={0.5}>
+            <WorkOutlineIcon fontSize="small" />
+            <span>شغل پاره وقت</span>
+          </Box>
+          </Box>
+        ),
         accessorKey: "part_time_job",
-        cell: ({ row }) => (row.original.part_time_job ? "بله" : "خیر"),
+        cell: ({ row }) =><Typography> {row.original.part_time_job ? "بله" : "خیر"}</Typography>,
       },
       {
         id: "actions",
-        header: "عملیات",
+        header: (
+          <Box display='flex' alignItems='center'> 
+            <Box width={5} height={20} borderRadius={2} bgcolor='rgb(200 200 200)'></Box>
+
+          <Box width='100%' display="flex" alignItems="center" justifyContent='center' gap={0.5}>
+            <SettingsIcon fontSize="small" />
+            <span>عملیات</span>
+          </Box>
+          </Box>
+        ),
         cell: ({ row }) => (
           <Box display="flex" gap={1} justifyContent='center'>
             <Button
@@ -188,9 +253,9 @@ const TableComp = ({ data }) => {
   }
 
   return (
-    <Box dir="rtl" sx={{ overflowX: "auto" }}>
-      <TableContainer component={Paper} sx={{ mt: 4 }}>
-        <Table sx={{ minWidth: 700 }}>
+    <Box dir="rtl" sx={{ overflowX: "hidden" , m:4 }}>
+      <TableContainer  component={Paper}>
+        <Table sx={{ minWidth: 1000 }} >
           <TableHead sx={{ bgcolor: isDark ? "grey.800" : "grey.100" }}>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -198,7 +263,7 @@ const TableComp = ({ data }) => {
                   <TableCell key={header.id}>
                     {flexRender(
                       header.column.columnDef.header,
-                      header.getContext()
+                      header.getContext(),
                     )}
                   </TableCell>
                 ))}
