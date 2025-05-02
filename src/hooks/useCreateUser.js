@@ -17,7 +17,7 @@ const useCreateUser = () => {
       console.error('Error creating user:', error);
     },
     onSuccess: () => {
-      toast.success('کاربر با موفقیت ایجاد شد!')
+      toast.success('!کاربر با موفقیت ایجاد شد')
       queryClient.invalidateQueries(['users']);
     },
   });

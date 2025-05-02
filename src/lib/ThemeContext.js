@@ -7,13 +7,11 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState('light');
   const [isOpen, setIsOpen] = useState(false);
 
-  // بارگذاری تم از localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
   }, []);
 
-  // جابه‌جایی تم و ذخیره در localStorage
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);

@@ -18,7 +18,7 @@ const useDeleteUser = () => {
       console.error('Error deleting user:', error);
     },
     onSuccess: () => {
-      toast.error("کاربر با موفقیت حذف شد.")
+      toast.error(".کاربر با موفقیت حذف شد")
       queryClient.invalidateQueries(['users']);
     },
   });

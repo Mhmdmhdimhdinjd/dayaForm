@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 
 
 export default function Layout({ children }) {
-  const { toggleTheme, toggleOffcanvas } = useThemeContext();
+  const { theme , toggleTheme, toggleOffcanvas } = useThemeContext();
 
   return (
     <div style={{ display: 'flex' }}>
@@ -19,9 +19,9 @@ export default function Layout({ children }) {
           sx={{
             borderRadius: 2,
             boxShadow: 2,
+            bgcolor: theme === "dark" ? "grey.900" : "white",
             m: 1,
             mt: 3,
-            p: 4,
           }}
         >
           <main>

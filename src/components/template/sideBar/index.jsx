@@ -15,10 +15,11 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
-import { Avatar, Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Avatar, Box, Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useThemeContext } from "@/src/lib/ThemeContext";
 import Drawer from "@mui/material/Drawer";
 import { CiCircleInfo } from "react-icons/ci";
+import { TbSmartHome } from "react-icons/tb";
 
 export default function NestedList() {
   const { theme, isOpen, toggleOffcanvas } = useThemeContext();
@@ -47,14 +48,14 @@ export default function NestedList() {
       sx={{
         boxShadow: isSmallScreen ? 0 : 3,
         px: 1,
-        width: 200,
+        width: 270,
         minHeight: isSmallScreen ? "auto" : "100vh",
         bgcolor: isDark ? "grey.900" : "background.paper",
       }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <Grid container sx={{ alignItems: "center" }}>
+      <Grid container mb={1} sx={{ alignItems: "center" }}>
         <Grid
           size={3}
           sx={{
@@ -84,11 +85,12 @@ export default function NestedList() {
         onClick={() => handleClick("dashboard")}
       >
         <ListItemIcon>
-          <PanoramaFishEyeIcon
-            sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+          <TbSmartHome
+          color={ isDark ? "white" : muiTheme.palette.text.primary}
+            size={24}
           />
         </ListItemIcon>
-        <ListItemText primary="مدیریت" />
+        <ListItemText primary="داشبورد" />
         <Avatar
           sx={{
             bgcolor: "#EF5350",
@@ -126,18 +128,20 @@ export default function NestedList() {
       <List
         subheader={
           <ListSubheader
-            sx={{ textAlign: "right", color: isDark ? "white" : "black" , bgcolor:  isDark &&'#212121' , }}
+            sx={{ textAlign: "right", color: muiTheme.palette.text.disabled , bgcolor:  isDark &&'#212121' , my:1}}
             component="div"
             id="nested-list-subheader"
           >
+            <Typography variant="subtitle1">
             بخش‌های سامانه
+            </Typography>
           </ListSubheader>
         }
       >
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
             <LocalGroceryStoreOutlinedIcon
-              sx={{ color: isDark ? "white" : "black" }}
+              sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }}
             />
           </ListItemIcon>
           <ListItemText primary="فروشگاه" />
@@ -145,7 +149,7 @@ export default function NestedList() {
 
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <SchoolOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
+            <SchoolOutlinedIcon sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }} />
           </ListItemIcon>
           <ListItemText primary="آموزش" />
         </ListItemButton>
@@ -156,7 +160,7 @@ export default function NestedList() {
         >
           <ListItemIcon>
             <PersonOutlineOutlinedIcon
-              sx={{ color: isDark ? "white" : "black" }}
+              sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }}
             />
           </ListItemIcon>
           <ListItemText selected={open.users} primary="کاربران" />
@@ -168,7 +172,7 @@ export default function NestedList() {
             <ListItemButton sx={{ pr: 4 }}>
               <ListItemIcon>
                 <PanoramaFishEyeIcon
-                  sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                  sx={{ fontSize: "1rem", color: isDark ? "white" : muiTheme.palette.text.primary }}
                 />
               </ListItemIcon>
               <ListItemText primary="لیست" />
@@ -181,7 +185,7 @@ export default function NestedList() {
             >
               <ListItemIcon>
                 <PanoramaFishEyeIcon
-                  sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                  sx={{ fontSize: "1rem", color: isDark ? "white" : muiTheme.palette.text.primary }}
                 />
               </ListItemIcon>
               <ListItemText primary="مشاهده" />
@@ -215,7 +219,7 @@ export default function NestedList() {
                     <PanoramaFishEyeIcon
                       sx={{
                         fontSize: "1rem",
-                        color: isDark ? "white" : "black",
+                        color: isDark ? "white" : muiTheme.palette.text.primary,
                       }}
                     />
                   </ListItemIcon>
@@ -230,7 +234,7 @@ export default function NestedList() {
                     <PanoramaFishEyeIcon
                       sx={{
                         fontSize: "1rem",
-                        color: isDark ? "white" : "black",
+                        color: isDark ? "white" : muiTheme.palette.text.primary,
                       }}
                     />
                   </ListItemIcon>
@@ -244,7 +248,7 @@ export default function NestedList() {
                         <PanoramaFishEyeIcon
                           sx={{
                             fontSize: "1rem",
-                            color: isDark ? "white" : "black",
+                            color: isDark ? "white" : muiTheme.palette.text.primary,
                           }}
                         />
                       </ListItemIcon>
@@ -256,7 +260,7 @@ export default function NestedList() {
                         <PanoramaFishEyeIcon
                           sx={{
                             fontSize: "1rem",
-                            color: isDark ? "white" : "black",
+                            color: isDark ? "white" : muiTheme.palette.text.primary,
                           }}
                         />
                       </ListItemIcon>
@@ -271,14 +275,14 @@ export default function NestedList() {
 
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <EmailOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
+            <EmailOutlinedIcon sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }} />
           </ListItemIcon>
           <ListItemText primary="ایمیل" />
         </ListItemButton>
 
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <MessageOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
+            <MessageOutlinedIcon sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }} />
           </ListItemIcon>
           <ListItemText primary="پیام" />
         </ListItemButton>
@@ -286,7 +290,7 @@ export default function NestedList() {
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
             <CalendarMonthOutlinedIcon
-              sx={{ color: isDark ? "white" : "black" }}
+              sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }}
             />
           </ListItemIcon>
           <ListItemText primary="تقویم" />
@@ -294,7 +298,7 @@ export default function NestedList() {
 
         <ListItemButton sx={{ flexDirection: "row-reverse" }}>
           <ListItemIcon>
-            <NoteAltOutlinedIcon sx={{ color: isDark ? "white" : "black" }} />
+            <NoteAltOutlinedIcon sx={{ color: isDark ? "white" : muiTheme.palette.text.primary }} />
           </ListItemIcon>
           <ListItemText primary="تسک ها" />
         </ListItemButton>
@@ -302,7 +306,7 @@ export default function NestedList() {
         <List
           subheader={
             <ListSubheader
-              sx={{ textAlign: "right", color: isDark ? "white" : "black",bgcolor:  isDark &&'#212121' , }}
+              sx={{ textAlign: "right", color: isDark ? "white" : muiTheme.palette.text.disabled,bgcolor:  isDark &&'#212121' , }}
               component="div"
               id="nested-list-subheader"
             >
@@ -317,7 +321,7 @@ export default function NestedList() {
           >
             <ListItemIcon>
               <PanoramaFishEyeIcon
-                sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                sx={{ fontSize: "1rem", color: isDark ? "white" : muiTheme.palette.text.primary }}
               />
             </ListItemIcon>
             <ListItemText primary="مدیریت" />
@@ -355,11 +359,11 @@ export default function NestedList() {
           >
             <ListItemIcon>
               <PanoramaFishEyeIcon
-                sx={{ fontSize: "1rem", color: isDark ? "white" : "black" }}
+                sx={{ fontSize: "1rem", color: isDark ? "white" : muiTheme.palette.text.primary }}
               />
             </ListItemIcon>
             <ListItemText primary="امنیت" />
-            {open.management ? <ExpandLess /> : <ExpandMore />}
+            {open.security ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
 
           <Collapse in={open.security} timeout="auto" unmountOnExit>
@@ -398,7 +402,7 @@ export default function NestedList() {
         onClose={toggleOffcanvas}
         sx={{
           "& .MuiDrawer-paper": {
-            width: 200,
+            width: 270,
             boxSizing: "border-box",
             bgcolor: isDark ? "grey.900" : "background.paper",
           },

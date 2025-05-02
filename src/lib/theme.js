@@ -1,21 +1,23 @@
 import { createTheme } from '@mui/material/styles';
 
 const lightTheme = createTheme({
+  direction: 'rtl',
   palette: {
     mode: 'light',
     primary: {
       main: '#7E57C2', // رنگ بنفش از فرم
     },
     secondary: {
-      main: '#7c5dfa', // رنگ بنفش روشن‌تر
+      main: '#7E57C2', // رنگ بنفش روشن‌تر
     },
     background: {
       default: '#ffffff',
-      paper: '#fafafa',
+      paper: '#ffffff',
     },
     text: {
-      primary: '#000000',
+      primary: '#2F2B3DC7',
       secondary: '#555555',
+      gray:'#2F2B3DC7'
     },
   },
   typography: {
@@ -38,18 +40,6 @@ const lightTheme = createTheme({
         },
       },
     },
-    // MuiTextField: {
-    //   styleOverrides: {
-    //     root: {
-    //       '& .MuiInputBase-root': {
-    //         transition: 'background-color 0.3s ease, color 0.3s ease',
-    //       },
-    //       '& .MuiInputLabel-root': {
-    //         transition: 'color 0.3s ease',
-    //       },
-    //     },
-    //   },
-    // },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -60,18 +50,18 @@ const lightTheme = createTheme({
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          flexDirection: 'row-reverse', // تنظیم جهت راست‌چین
+          flexDirection: 'row-reverse', 
           marginBottom: '8px',
           '& .MuiListItemIcon-root': {
             minWidth: 0,
             marginLeft: '8px',
-            color: 'black', // تنظیم رنگ ایکون‌ها
+            color: 'black',
           },
           '& .css-rizt0-MuiTypography-root': {
-            textAlign: 'right', // متن راست‌چین
-            fontFamily: 'Gandom',
+            textAlign: 'right', 
           },
-          borderRadius: '12px', // گوشه‌های گرد
+          borderRadius: '6px', 
+          height:'44px'
         },
       },
     },
@@ -94,10 +84,10 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#7c5dfa', // بنفش روشن‌تر برای دارک مود
+      main: '#7c5dfa',
     },
     secondary: {
-      main: '#bb86fc', // رنگ ثانویه در دارک مود
+      main: '#bb86fc', 
     },
     background: {
       default: '#121212',

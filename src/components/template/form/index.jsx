@@ -10,6 +10,8 @@ import {
   FormControlLabel,
   FormGroup,
   Grid,
+  Divider,
+  MenuItem,
 } from "@mui/material";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
@@ -28,23 +30,11 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import useCreateUser from "@/src/hooks/useCreateUser";
 import { useThemeContext } from "@/src/lib/ThemeContext";
-import makeAnimated from "react-select/animated";
+import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
   loading: () => <Typography>در حال بارگیری ویرایشگر...</Typography>,
-});
-
-const Select = dynamic(() => import("react-select"), {
-  ssr: false,
-  loading: () => <Typography>در حال بارگیری ویرایشگر...</Typography>,
-});
-
-const animatedComponents = makeAnimated();
-
-const rtlCache = createCache({
-  key: "muirtl",
-  stylisPlugins: [prefixer, rtlPlugin],
 });
 
 const CssTextField = styled(
@@ -53,6 +43,7 @@ const CssTextField = styled(
   )
 )(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
+    borderRadius: "6px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
       borderColor: "#0000003B",
     },
@@ -141,7 +132,7 @@ const Form = () => {
   const { theme: themeContext } = useThemeContext();
   const isDark = themeContext === "dark";
   const theme = useTheme();
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedProvince, setselectedProvince] = useState(null);
 
   const options1 = [
     { value: "tehran", label: "تهران" },
@@ -186,7 +177,7 @@ const Form = () => {
       full_time_job: false,
       part_time_job: false,
       resume: "",
-      date: undefined,
+      date: [],
       idType: "national",
       idNumber: "",
     },
@@ -194,7 +185,7 @@ const Form = () => {
   });
 
   useEffect(() => {
-    setSelectedOption(watch("Province"));
+    setselectedProvince(watch("Province"));
     setValue("city", null);
   }, [watch("Province")]);
 
@@ -206,7 +197,7 @@ const Form = () => {
   } = useCreateUser();
 
   const onSubmit = (formData) => {
-    mutate(formData, {
+     mutate(formData, {
       onSuccess: () => {
         reset();
       },
@@ -247,78 +238,40 @@ const Form = () => {
     [isDark]
   );
 
-  const selectStyles = useMemo(
-    () => ({
-      control: (base) => ({
-        ...base,
-        backgroundColor: isDark && "#2d2d2d",
-        borderColor: isDark
-          ? "rgba(255, 255, 255, 0.23)"
-          : "rgba(0, 0, 0, 0.23)",
-        borderRadius: "4px",
-        height: "54px",
-        fontSize: "0.9rem",
-        "&:hover": {
-          borderColor: "#0000003B",
-        },
-        boxShadow: "none",
-        "&:focus": {
-          borderColor: "red",
-        },
-      }),
-      menu: (base) => ({
-        ...base,
-        backgroundColor: theme.palette.background.paper || "#fff",
-        zIndex: 9999,
-        borderRadius: "8px",
-      }),
-      option: (base, state) => ({
-        ...base,
-        backgroundColor: state.isSelected
-          ? theme.palette.secondary.main
-          : theme.palette.background.paper,
-        color: state.isSelected
-          ? theme.palette.secondary.contrastText
-          : theme.palette.text.primary,
-        "&:hover": {
-          backgroundColor: state.isSelected
-            ? theme.palette.secondary.main
-            : theme.palette.action.hover,
-        },
-      }),
-      singleValue: (base) => ({
-        ...base,
-        color: theme.palette?.text?.primary || "#000",
-      }),
-      placeholder: (base) => ({
-        ...base,
-        color: theme.palette?.text?.secondary || "#666",
-        fontSize: "0.9rem",
-      }),
-      input: (base) => ({
-        ...base,
-        color: theme.palette?.text?.primary || "#000",
-      }),
-    }),
-    [theme]
-  );
+  // const [dates, setDates] = useState(undefined);
+
+  const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [prefixer, rtlPlugin],
+  });
 
   return (
-    <CacheProvider value={rtlCache}>
-      <Typography
-        color="primary"
-        variant="h5"
-        sx={{ textAlign: "left", mb: 4 }}
-      >
-        اطلاعات کاربر
-      </Typography>
+    <CacheProvider value={cacheRtl}>
+      <Grid direction='rtl' flexDirection="row-reverse" container px={2} pt={3} pb={1}>
+        <Grid
+          display="flex"
+          mb={1}
+          color={theme.palette.text.gray}
+          justifyContent="left"
+        >
+          <Typography variant="h5" fontWeight="500">
+            اطلاعات کاربر
+          </Typography>
+          <MdOutlineAccountBalanceWallet size={24} />
+        </Grid>
+        <Grid size={{ xs: 12, md: 0 }}></Grid>
+        <Grid>
+          <Typography ml={{ xs: 0, md: 6 }} variant="subtitle1" color="#f44336">
+            بعد از ثبت , اطلاعات کاربر قابل تغییر نخواهد بود
+          </Typography>
+        </Grid>
+      </Grid>
+
+      <Divider />
 
       <form style={{ direction: "rtl" }} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={2}>
-          <Grid
-            sx={{ minHeight: "74px" }}
-            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}
-          >
+        <Grid sx={{ m: 4 }} container spacing={2}>
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -327,6 +280,7 @@ const Form = () => {
                   <CssTextField
                     {...field}
                     label="نام *"
+                    size="small"
                     slotProps={{
                       inputLabel: {
                         shrink: true,
@@ -349,6 +303,7 @@ const Form = () => {
                   <CssTextField
                     {...field}
                     label="نام خانوادگی *"
+                    size="small"
                     slotProps={{
                       inputLabel: {
                         shrink: true,
@@ -362,7 +317,7 @@ const Form = () => {
             </FormControl>
           </Grid>
 
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+          {/* <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -402,9 +357,47 @@ const Form = () => {
                 {errors.Province?.message}
               </Typography>
             </FormControl>
-          </Grid>
+          </Grid>*/}
 
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="Province"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="استان"
+                    error={errors.Province}
+                    helperText={errors.Province?.message}
+                    inputId="province"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = options1.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    {options1.map((option) => (
+                      <MenuItem sx={{direction:'rtl'}} key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -448,6 +441,52 @@ const Form = () => {
                 {errors.city?.message}
               </Typography>
             </FormControl>
+          </Grid> */}
+
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="city"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="شهر"
+                    error={errors.city}
+                    helperText={errors.city?.message}
+                    inputId="city"
+                    value={field.value?.value || ""} 
+                    onChange={(e) => {
+                      const selectedOption = options2[selectedProvince.value].find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    
+                    {
+                    selectedProvince ?
+                    options2[selectedProvince.value].map((option) => (
+                      <MenuItem sx={{direction:'rtl'}} key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))
+                  :
+                  <MenuItem dir="rtl" sx={{direction:'rtl'}} value='none'>
+                        !ابتدا استان را انتخاب کنید
+                      </MenuItem>
+                  }
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
           </Grid>
 
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
@@ -470,6 +509,7 @@ const Form = () => {
                         shrink: true,
                       },
                     }}
+                    size="small"
                   />
                 )}
               />
@@ -487,7 +527,10 @@ const Form = () => {
                     calendar={persian}
                     locale={persian_fa}
                     calendarPosition="bottom-right"
-                    onChange={(date) => field.onChange(date)}
+                    onChange={(e , date) => {
+                      field.onChange(date.validatedValue[0] );
+                      console.log(date.validatedValue[0] );
+                    }}
                     render={
                       <CssTextField
                         label="تاریخ تولد*"
@@ -499,6 +542,7 @@ const Form = () => {
                             shrink: true,
                           },
                         }}
+                        size="small"
                       />
                     }
                   />
@@ -518,6 +562,7 @@ const Form = () => {
                       {...field}
                       fullWidth
                       margin="none"
+                      size="small"
                       label={
                         selectedType === "national"
                           ? "کد ملی (۱۰ رقم)*"
@@ -551,7 +596,7 @@ const Form = () => {
                           borderTopLeftRadius: 0,
                           borderBottomLeftRadius: 0,
                           whiteSpace: "nowrap",
-                          height: "56px",
+                          height: "40px",
                         }}
                       >
                         حقیقی
@@ -561,7 +606,7 @@ const Form = () => {
                         variant={
                           selectedType === "economic" ? "contained" : "outlined"
                         }
-                        sx={{ whiteSpace: "nowrap", height: "56px" }}
+                        sx={{ whiteSpace: "nowrap", height: "40px" }}
                       >
                         حقوقی
                       </Button>
@@ -662,7 +707,7 @@ const Form = () => {
           type="submit"
           variant="contained"
           color="secondary"
-          sx={{ m: 3, mx: 0 }}
+          sx={{ ml: 4, mr: 2 }}
         >
           ثبت اطلاعات
         </Button>
@@ -672,7 +717,6 @@ const Form = () => {
           variant="contained"
           color="primary"
           onClick={() => reset()}
-          sx={{ m: 3 }}
         >
           بازنشانی
         </Button>

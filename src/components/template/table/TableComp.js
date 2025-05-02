@@ -77,14 +77,18 @@ const TableComp = ({ data }) => {
       "نام خانوادگی": item.last__name,
       "تاریخ تولد": item.date,
       "نوع کاربر": item.idType === "national" ? "حقیقی" : "حقوقی",
-      [item.idType === "national" ? "کدملی" : "شناسه اقتصادی"]: item.idNumber,
+      "کد شناسایی": item.idNumber,
       "شغل پاره‌وقت": item.part_time_job ? "بله" : "خیر",
       "شغل تمام وقت": item.full_time_job ? "بله" : "خیر",
       "کد پستی": item.postal_code,
-      رزومه: item.resume,
+      رزومه: item.resume.replace(/<[^>]*>/g, '') ,
     }));
-
     const worksheet = XLSX.utils.json_to_sheet(transformedData);
+    worksheet['!cols'] = [
+      { width: 20 }, { width: 25 }, { width: 15 }, 
+      { width: 15 }, { width: 25 }, { width: 15 },
+      { width: 15 }, { width: 15 }, { width: 40 }
+    ];
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
     const excelBuffer = XLSX.write(workbook, {
@@ -109,6 +113,10 @@ const TableComp = ({ data }) => {
 
   const columns = useMemo(
     () => [
+      {
+        header: 'ردیف',
+        cell: ({ row }) => <span>{row.index + 1}</span>,
+      },
       {
         id: "first_name",
         header: "نام",
@@ -370,7 +378,7 @@ const TableComp = ({ data }) => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setModalOpen(false)} color="secondary">
+          <Button sx={{mr:1}} onClick={() => setModalOpen(false)} color="secondary">
             بستن
           </Button>
         </DialogActions>
@@ -438,3 +446,4 @@ const TableComp = ({ data }) => {
 };
 
 export default TableComp;
+
