@@ -45,7 +45,7 @@ const CssTextField = styled(
   "& .MuiOutlinedInput-root": {
     borderRadius: "6px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: theme.palette.mode=== 'light' ? "#0000003B" : '#fff',
+      borderColor: theme.palette.mode === "light" ? "#0000003B" : "#fff",
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.secondary.main,
@@ -66,7 +66,7 @@ const CssTextFieldNationalcode = styled(TextField)(({ theme }) => ({
     borderRadius: "4px 0 0 4px",
     "&:hover .MuiOutlinedInput-notchedOutline": {
       borderRight: 0,
-      borderColor:  theme.palette.mode=== 'light' ? "#0000003B" : '#fff',
+      borderColor: theme.palette.mode === "light" ? "#0000003B" : "#fff",
     },
     "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: theme.palette.secondary.main,
@@ -96,12 +96,19 @@ const validationSchema = yup.object().shape({
     ),
   Province: yup.object().required("استان اجباری است"),
   city: yup.object().required("شهر اجباری است"),
+  Gender: yup.object().required("لطفا جنسیت را وارد نمایید"),
+  isMarried:yup.object().required("لطفا وضعیت تاهل را وارد نمایید"),
   postal_code: yup
     .string()
     .required("کد پستی اجباری است")
     .matches(/^\d{10}$/, "کد پستی باید ۱۰ رقم باشد"),
   resume: yup.string().required("رزومه اجباری است"),
-  date: yup.string().required("تاریخ تولد اجباری است"),
+  // date: yup.string("لطفا تاریخ تولد را وارد نمایید").required("تاریخ تولد اجباری است"),
+  date: yup
+  .mixed()
+  .test("required", "تاریخ تولد اجباری است", (value) => {
+    return Array.isArray(value) ? value.length > 0 : !!value;
+  }),
   idType: yup.string().oneOf(["national", "economic"]).required(),
   idNumber: yup
     .string()
@@ -141,6 +148,16 @@ const Form = () => {
     { value: "mazandaran", label: "مازندران" },
   ];
 
+  const GenderOptions = [
+    { value: "man", label: "مرد" },
+    { value: "woman", label: "زن" },
+  ];
+
+  const isMarriedOptions = [
+    { value: "single", label: "مجرد" },
+    { value: "married", label: "متاهل" },
+  ]
+
   const options2 = {
     mazandaran: [
       { value: "babol", label: "بابل" },
@@ -174,6 +191,7 @@ const Form = () => {
       last__name: "",
       Province: null,
       city: null,
+      Gender: null,
       postal_code: "",
       full_time_job: false,
       part_time_job: false,
@@ -198,7 +216,7 @@ const Form = () => {
   } = useCreateUser();
 
   const onSubmit = (formData) => {
-     mutate(formData, {
+    mutate(formData, {
       onSuccess: () => {
         reset();
       },
@@ -239,15 +257,21 @@ const Form = () => {
     [isDark]
   );
 
-
   const cacheRtl = createCache({
-    key: 'muirtl',
+    key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
 
   return (
     <CacheProvider value={cacheRtl}>
-      <Grid direction='rtl' flexDirection="row-reverse" container px={2} pt={3} pb={1}>
+      <Grid
+        direction="rtl"
+        flexDirection="row-reverse"
+        container
+        px={2}
+        pt={3}
+        pb={1}
+      >
         <Grid
           display="flex"
           mb={1}
@@ -271,6 +295,7 @@ const Form = () => {
 
       <form style={{ direction: "rtl" }} onSubmit={handleSubmit(onSubmit)}>
         <Grid sx={{ m: 4 }} container spacing={2}>
+          {/* نام  */}
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
@@ -294,6 +319,7 @@ const Form = () => {
             </FormControl>
           </Grid>
 
+          {/* نام خانوادگی  */}
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
@@ -317,242 +343,9 @@ const Form = () => {
             </FormControl>
           </Grid>
 
-          {/* <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="Province"
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    components={animatedComponents}
-                    placeholder="لطفا استان را انتخاب کنید*"
-                    options={options1}
-                    inputId="province"
-                    theme={(theme) => ({
-                      ...theme,
-                      colors: {
-                        ...theme.colors,
-                        neutral0: isDark ? "#2d2d2d" : theme.colors.neutral0,
-                        neutral80: isDark ? "#fff" : theme.colors.neutral80,
-                        neutral50: isDark ? "#ccc" : theme.colors.neutral50,
-                        primary25: isDark ? "#404040" : theme.colors.primary25,
-                        neutral30: isDark ? "#666" : "#fff",
-                      },
-                    })}
-                    styles={selectStyles}
-                  />
-                )}
-              />
-              <Typography
-                color="error"
-                sx={{
-                  fontSize: "0.75rem",
-                  lineHeight: "1.66",
-                  fontWeight: 400,
-                  ml: 2,
-                  mt: 0.5,
-                }}
-              >
-                {errors.Province?.message}
-              </Typography>
-            </FormControl>
-          </Grid>*/}
-
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="Province"
-                render={({ field }) => (
-                  <CssTextField
-                    {...field}
-                    size="small"
-                    select
-                    label="استان"
-                    error={errors.Province}
-                    helperText={errors.Province?.message}
-                    inputId="province"
-                    value={field.value?.value || ""}
-                    onChange={(e) => {
-                      const selectedOption = options1.find(
-                        (opt) => opt.value === e.target.value
-                      );
-                      field.onChange(selectedOption);
-                    }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                      },
-                    }}
-                  >
-                    {options1.map((option) => (
-                      <MenuItem sx={{direction:'rtl'}} key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </CssTextField>
-                )}
-              />
-            </FormControl>
-          </Grid>
-
-          {/* <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="city"
-                render={({ field }) => (
-                  <Select
-                    {...field}
-                    components={animatedComponents}
-                    placeholder={
-                      selectedOption
-                        ? "لطفا شهر را انتخاب کنید*"
-                        : "ابتدا استان را انتخاب کنید!"
-                    }
-                    options={selectedOption && options2[selectedOption.value]}
-                    isDisabled={!selectedOption}
-                    theme={(theme) => ({
-                      ...theme,
-                      colors: {
-                        ...theme.colors,
-                        neutral0: isDark ? "#2d2d2d" : theme.colors.neutral0,
-                        neutral80: isDark ? "#fff" : theme.colors.neutral80,
-                        neutral50: isDark ? "#ccc" : theme.colors.neutral50,
-                        primary25: isDark ? "#404040" : theme.colors.primary25,
-                        neutral30: isDark ? "#666" : "#fff",
-                      },
-                    })}
-                    styles={selectStyles} // استفاده از استایل‌های دینامیک
-                  />
-                )}
-              />
-              <Typography
-                color="error"
-                sx={{
-                  fontSize: "0.75rem",
-                  lineHeight: "1.66",
-                  fontWeight: 400,
-                  ml: 2,
-                  mt: 0.5,
-                }}
-              >
-                {errors.city?.message}
-              </Typography>
-            </FormControl>
-          </Grid> */}
-
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="city"
-                render={({ field }) => (
-                  <CssTextField
-                    {...field}
-                    size="small"
-                    select
-                    label="شهر"
-                    error={errors.city}
-                    helperText={errors.city?.message}
-                    inputId="city"
-                    value={field.value?.value || ""} 
-                    onChange={(e) => {
-                      const selectedOption = options2[selectedProvince.value].find(
-                        (opt) => opt.value === e.target.value
-                      );
-                      field.onChange(selectedOption);
-                    }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                      },
-                    }}
-                  >
-                    
-                    {
-                    selectedProvince ?
-                    options2[selectedProvince.value].map((option) => (
-                      <MenuItem sx={{direction:'rtl'}} key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))
-                  :
-                  <MenuItem dir="rtl" sx={{direction:'rtl'}} value='none'>
-                        !ابتدا استان را انتخاب کنید
-                      </MenuItem>
-                  }
-                  </CssTextField>
-                )}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="postal_code"
-                render={({ field }) => (
-                  <CssTextField
-                    {...field}
-                    label="کد پستی*"
-                    helperText={errors.postal_code?.message}
-                    inputProps={{ maxLength: 10 }}
-                    error={!!errors.postal_code}
-                    onInput={(e) => {
-                      e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                    }}
-                    slotProps={{
-                      inputLabel: {
-                        shrink: true,
-                      },
-                    }}
-                    size="small"
-                  />
-                )}
-              />
-            </FormControl>
-          </Grid>
-
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
-            <FormControl fullWidth>
-              <Controller
-                control={control}
-                name="date"
-                render={({ field }) => (
-                  <DatePicker
-                    {...field}
-                    calendar={persian}
-                    locale={persian_fa}
-                    calendarPosition="bottom-right"
-                    onChange={(e , date) => {
-                      field.onChange(date.validatedValue[0] );
-                      console.log(date.validatedValue[0] );
-                    }}
-                    render={
-                      <CssTextField
-                        label="تاریخ تولد*"
-                        fullWidth
-                        helperText={errors.date?.message}
-                        error={!!errors.date}
-                        slotProps={{
-                          inputLabel: {
-                            shrink: true,
-                          },
-                        }}
-                        size="small"
-                      />
-                    }
-                  />
-                )}
-              />
-            </FormControl>
-          </Grid>
-
+          {/* کد شناسایی */}
           <Grid size={{ xs: 12, Laptop: 6, LaptopL: 4, lg: 3 }}>
-            <FormControl fullWidth sx={{ mb: 3 }}>
+            <FormControl fullWidth>
               <Controller
                 control={control}
                 name="idNumber"
@@ -617,10 +410,257 @@ const Form = () => {
             </FormControl>
           </Grid>
 
+          {/* وضعیت تاهل */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="isMarried"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="وضعیت تاهل*"
+                    error={errors.isMarried}
+                    helperText={errors.isMarried?.message}
+                    inputId="province"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = isMarriedOptions.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    {isMarriedOptions.map((option) => (
+                      <MenuItem
+                        sx={{ direction: "rtl" }}
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* جنسیت */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="Gender"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="جنسیت*"
+                    error={errors.Gender}
+                    helperText={errors.Gender?.message}
+                    inputId="province"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = GenderOptions.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    {GenderOptions.map((option) => (
+                      <MenuItem
+                        sx={{ direction: "rtl" }}
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* استان  */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="Province"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="استان"
+                    error={errors.Province}
+                    helperText={errors.Province?.message}
+                    inputId="province"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = options1.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    {options1.map((option) => (
+                      <MenuItem
+                        sx={{ direction: "rtl" }}
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* شهر  */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="city"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="شهر"
+                    error={errors.city}
+                    helperText={errors.city?.message}
+                    inputId="city"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = options2[
+                        selectedProvince.value
+                      ].find((opt) => opt.value === e.target.value);
+                      field.onChange(selectedOption);
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                  >
+                    {selectedProvince ? (
+                      options2[selectedProvince.value].map((option) => (
+                        <MenuItem
+                          sx={{ direction: "rtl" }}
+                          key={option.value}
+                          value={option.value}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem
+                        dir="rtl"
+                        sx={{ direction: "rtl" }}
+                        value="none"
+                      >
+                        !ابتدا استان را انتخاب کنید
+                      </MenuItem>
+                    )}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* کد پستی  */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="postal_code"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    label="کد پستی*"
+                    helperText={errors.postal_code?.message}
+                    inputProps={{ maxLength: 10 }}
+                    error={!!errors.postal_code}
+                    onInput={(e) => {
+                      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                    size="small"
+                  />
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* تاریخ تولد */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="date"
+                render={({ field }) => (
+                  <DatePicker
+                    {...field}
+                    calendar={persian}
+                    locale={persian_fa}
+                    calendarPosition="bottom-right"
+                    onChange={(e, date) => {
+                      field.onChange(date.validatedValue[0]);
+                      console.log(date.validatedValue[0]);
+                    }}
+                    render={
+                      <CssTextField
+                        label="تاریخ تولد*"
+                        fullWidth
+                        helperText={errors.date?.message}
+                        error={!!errors.date}
+                        slotProps={{
+                          inputLabel: {
+                            shrink: true,
+                          },
+                        }}
+                        size="small"
+                      />
+                    }
+                  />
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          {/* نوع همکاری  */}
           <Grid size={{ xs: 12, Laptop: 6, LaptopL: 4, lg: 3 }}>
             <FormControl fullWidth component="fieldset">
               <Label labelText="نوع همکاری*" />
-              <FormGroup row sx={{ gap: 3, ml: 4 , mt:-1.5}}>
+              <FormGroup row sx={{ gap: 3, ml: 4, mt: -1.5 }}>
                 <FormControlLabel
                   control={
                     <Controller
@@ -672,6 +712,7 @@ const Form = () => {
             </FormControl>
           </Grid>
 
+          {/* رزومه */}
           <FormControl fullWidth>
             <Label labelText="رزومه کامل*" htmlFor="resume" />
             <Controller
