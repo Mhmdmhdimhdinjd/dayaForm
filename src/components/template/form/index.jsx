@@ -12,7 +12,11 @@ import {
   Grid,
   Divider,
   MenuItem,
+  InputAdornment,
+  IconButton,
+  Select,
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
@@ -97,16 +101,15 @@ const validationSchema = yup.object().shape({
   Province: yup.object().required("استان اجباری است"),
   city: yup.object().required("شهر اجباری است"),
   Gender: yup.object().required("لطفا جنسیت را وارد نمایید"),
-  isMarried:yup.object().required("لطفا وضعیت تاهل را وارد نمایید"),
+  isMarried: yup.object().required("لطفا وضعیت تاهل را وارد نمایید"),
+  criminal_record: yup.object().required("لطفا سابقه کیفری را مشخص نمایید"),
+  militarySrvice: yup.object().required("لطفا وظعیت نظام وظیفه را مشخص نمایید"),
   postal_code: yup
     .string()
     .required("کد پستی اجباری است")
     .matches(/^\d{10}$/, "کد پستی باید ۱۰ رقم باشد"),
   resume: yup.string().required("رزومه اجباری است"),
-  // date: yup.string("لطفا تاریخ تولد را وارد نمایید").required("تاریخ تولد اجباری است"),
-  date: yup
-  .mixed()
-  .test("required", "تاریخ تولد اجباری است", (value) => {
+  date: yup.mixed().test("required", "تاریخ تولد اجباری است", (value) => {
     return Array.isArray(value) ? value.length > 0 : !!value;
   }),
   idType: yup.string().oneOf(["national", "economic"]).required(),
@@ -156,7 +159,21 @@ const Form = () => {
   const isMarriedOptions = [
     { value: "single", label: "مجرد" },
     { value: "married", label: "متاهل" },
-  ]
+  ];
+
+  const criminalRecordOptions = [
+    { value: "none", label: "محکومیت ندارم" },
+    { value: "conditional", label: "آزادی مشروط" },
+  ];
+
+  const militarySrviceOptions = [
+    { value: "permanent", label: "مطافیت دائم" },
+    { value: "education", label: "مطافیت تحصیل" },
+    { value: "inProgress", label: "در حال انجام" },
+    { value: "exempt", label: "مشمول" },
+    { value: "notExempt", label: "غیر مشمول" },
+    { value: "completed", label: "انجام شده (پایان خدمت)" },
+  ];
 
   const options2 = {
     mazandaran: [
@@ -192,6 +209,9 @@ const Form = () => {
       Province: null,
       city: null,
       Gender: null,
+      isMarried: null,
+      criminal_record: { value: "none", label: "محکومیت ندارم" },
+      militarySrvice: null,
       postal_code: "",
       full_time_job: false,
       part_time_job: false,
@@ -261,6 +281,14 @@ const Form = () => {
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
+
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 150,
+      },
+    },
+  };
 
   return (
     <CacheProvider value={cacheRtl}>
@@ -410,6 +438,73 @@ const Form = () => {
             </FormControl>
           </Grid>
 
+          {/* جنسیت */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="Gender"
+                render={({ field }) => (
+                  <CssTextField
+                    {...field}
+                    size="small"
+                    select
+                    label="جنسیت*"
+                    error={errors.Gender}
+                    helperText={errors.Gender?.message}
+                    inputId="Gender"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = GenderOptions.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                    InputProps={{
+                      endAdornment: watch("Gender") && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("Gender", null);
+                              trigger("Gender");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  >
+                    {GenderOptions.map((option) => (
+                      <MenuItem
+                        sx={{ direction: "rtl" }}
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </CssTextField>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
           {/* وضعیت تاهل */}
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
@@ -424,7 +519,7 @@ const Form = () => {
                     label="وضعیت تاهل*"
                     error={errors.isMarried}
                     helperText={errors.isMarried?.message}
-                    inputId="province"
+                    inputId="isMarried"
                     value={field.value?.value || ""}
                     onChange={(e) => {
                       const selectedOption = isMarriedOptions.find(
@@ -432,10 +527,34 @@ const Form = () => {
                       );
                       field.onChange(selectedOption);
                     }}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
+                    }}
                     slotProps={{
                       inputLabel: {
                         shrink: true,
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: watch("isMarried") && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("isMarried", null);
+                              trigger("isMarried");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                   >
                     {isMarriedOptions.map((option) => (
@@ -453,35 +572,59 @@ const Form = () => {
             </FormControl>
           </Grid>
 
-          {/* جنسیت */}
+          {/* سابقه کیفری */}
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
             <FormControl fullWidth>
               <Controller
                 control={control}
-                name="Gender"
+                name="criminal_record"
                 render={({ field }) => (
                   <CssTextField
                     {...field}
                     size="small"
                     select
-                    label="جنسیت*"
-                    error={errors.Gender}
-                    helperText={errors.Gender?.message}
-                    inputId="province"
+                    label="سابقه کیفری *"
+                    error={errors.criminal_record}
+                    helperText={errors.criminal_record?.message}
+                    inputId="criminal_record"
                     value={field.value?.value || ""}
                     onChange={(e) => {
-                      const selectedOption = GenderOptions.find(
+                      const selectedOption = criminalRecordOptions.find(
                         (opt) => opt.value === e.target.value
                       );
                       field.onChange(selectedOption);
+                    }}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
                     }}
                     slotProps={{
                       inputLabel: {
                         shrink: true,
                       },
                     }}
+                    InputProps={{
+                      endAdornment: watch("criminal_record") && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("criminal_record", null);
+                              trigger("criminal_record");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                   >
-                    {GenderOptions.map((option) => (
+                    {criminalRecordOptions.map((option) => (
                       <MenuItem
                         sx={{ direction: "rtl" }}
                         key={option.value}
@@ -495,6 +638,76 @@ const Form = () => {
               />
             </FormControl>
           </Grid>
+
+          {/* وضعیت سربازی */}
+          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
+            <FormControl fullWidth>
+              <Controller
+                control={control}
+                name="militarySrvice"
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    size="small"
+                    select
+                    error={errors.militarySrvice}
+                    helperText={errors.militarySrvice?.message}
+                    inputId="militarySrvice"
+                    value={field.value?.value || ""}
+                    onChange={(e) => {
+                      const selectedOption = militarySrviceOptions.find(
+                        (opt) => opt.value === e.target.value
+                      );
+                      field.onChange(selectedOption);
+                    }}
+                    input={<CssTextField label="وضعیت نظام وظیفه *" />}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
+                    }}
+                    slotProps={{
+                      inputLabel: {
+                        shrink: true,
+                      },
+                    }}
+                    MenuProps={MenuProps}
+                    InputProps={{
+                      endAdornment: watch("militarySrvice") && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("militarySrvice", null);
+                              trigger("militarySrvice");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  >
+                    {militarySrviceOptions.map((option) => (
+                      <MenuItem
+                        sx={{ direction: "rtl" }}
+                        key={option.value}
+                        value={option.value}
+                      >
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                )}
+              />
+            </FormControl>
+          </Grid>
+
+          <Grid xs={12}></Grid>
 
           {/* استان  */}
           <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, md: 4, lg: 3 }}>
@@ -518,10 +731,34 @@ const Form = () => {
                       );
                       field.onChange(selectedOption);
                     }}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
+                    }}
                     slotProps={{
                       inputLabel: {
                         shrink: true,
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: selectedProvince && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("province", null);
+                              trigger("province");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                   >
                     {options1.map((option) => (
@@ -561,10 +798,34 @@ const Form = () => {
                       ].find((opt) => opt.value === e.target.value);
                       field.onChange(selectedOption);
                     }}
+                    sx={{
+                      "&:hover .show-on-hover": {
+                        display: "inline-flex",
+                      },
+                    }}
                     slotProps={{
                       inputLabel: {
                         shrink: true,
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: watch("city") && (
+                        <InputAdornment
+                          className="show-on-hover"
+                          sx={{ display: "none", mr: 2 }}
+                          position="start"
+                        >
+                          <IconButton
+                            onClick={() => {
+                              setValue("city", null);
+                              trigger("city");
+                            }}
+                            size="small"
+                          >
+                            <ClearIcon fontSize="small" />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                   >
                     {selectedProvince ? (
