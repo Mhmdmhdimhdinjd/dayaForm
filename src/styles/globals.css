@@ -83,6 +83,7 @@
   font-family: Vazir !important;
   text-decoration: none;
 }
+
 .MuiTypography-root,
 .MuiTableCell-root {
   text-align: right !important;
@@ -95,5 +96,5 @@ margin-right: 20px !important;
   color: #f44336 !important;
 }
 .muirtl-15yptk8-MuiButtonBase-root-MuiMenuItem-root {
-  direction: rtl !important;
+  direction: ltr !important;
 }

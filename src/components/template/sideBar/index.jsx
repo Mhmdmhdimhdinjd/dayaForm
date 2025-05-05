@@ -49,7 +49,10 @@ export default function NestedList() {
         boxShadow: isSmallScreen ? 0 : 3,
         px: 1,
         width: 270,
-        minHeight: isSmallScreen ? "auto" : "100vh",
+        height: "100vh",
+        position:'sticky',
+        top:0,
+        overflowY:'scroll',
         bgcolor: isDark ? "grey.900" : "background.paper",
       }}
       component="nav"

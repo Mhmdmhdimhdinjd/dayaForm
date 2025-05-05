@@ -11,7 +11,7 @@ export default function Layout({ children }) {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ width: '100%', margin: '1rem', flex: '1', overflow: 'hidden' }}>
+      <div style={{ width: '100%', margin: '1rem 0', flex: '1', overflow: 'hidden' }}>
         <NavbarComp toggleOffcanvas={toggleOffcanvas} toggleTheme={toggleTheme} />
 
         <Box
@@ -21,7 +21,7 @@ export default function Layout({ children }) {
             boxShadow: 2,
             bgcolor: theme === "dark" ? "grey.900" : "white",
             m: 1,
-            mt: 3,
+            mt: 2,
           }}
         >
           <main>

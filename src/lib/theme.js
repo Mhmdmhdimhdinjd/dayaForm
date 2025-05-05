@@ -4,6 +4,9 @@ const lightTheme = createTheme({
   direction: 'rtl',
   palette: {
     mode: 'light',
+    grey:{
+      300:'red'
+    },
     primary: {
       main: '#7E57C2',
     },
@@ -11,7 +14,7 @@ const lightTheme = createTheme({
       main: '#7E57C2',
     },
     background: {
-      default: '#f0f2f5',
+      default: 'rgb(248, 247, 250)',
       paper: '#ffffff',
     },
     text: {
@@ -45,13 +48,13 @@ const lightTheme = createTheme({
   },
   breakpoints: {
     values: {
-      lg:1300,
-      LaptopL:1100,
-      md:1030,
-      Laptop:840,
-      Tablet:780,
+      lg:1400,
+      LaptopL:1140,
+      // md:1030,
+      // Laptop:840,
+      Tablet:885,
       sm: 710,
-      mobileL:560,
+      mobileL:609,
       xs:0,
     },
   },

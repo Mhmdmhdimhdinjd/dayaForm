@@ -74,6 +74,7 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
           bgcolor: theme === "dark" ? "grey.900" : "white",
           boxShadow: 2,
           m: 1,
+          mt:0,
           borderRadius: 1.5,
           width: "auto",
         }}

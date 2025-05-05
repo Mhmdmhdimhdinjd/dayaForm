@@ -16,7 +16,7 @@ const Footer = () => (
       gap: ".5rem",
     }}
   >
-    <Box sx={{ display: "flex", gap: 2, minWidth: 292 }}>
+    <Box sx={{ display: "flex", gap: 1.9, minWidth: 292 }}>
       <Link href="#">
         <Typography color="primary">پشتیبانی</Typography>
       </Link>
