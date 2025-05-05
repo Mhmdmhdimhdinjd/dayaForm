@@ -92,18 +92,6 @@ const NavbarComp = ({ toggleTheme, toggleOffcanvas }) => {
                 },
               }}
             >
-              {/* <img
-                  style={{
-                    width: "2.5rem",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                    gap: 1,
-                  }}
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-FuNTRMOa9731WMn4gdr8oSwSGBg3EepvA&s"
-                  alt="profile"
-                /> */}
-
               <Avatar
                 alt="Remy Sharp"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5-FuNTRMOa9731WMn4gdr8oSwSGBg3EepvA&s"

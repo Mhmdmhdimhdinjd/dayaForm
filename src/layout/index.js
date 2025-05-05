@@ -1,18 +1,27 @@
-import NavbarComp from '../components/template/navBar';
-import Footer from '../components/template/footer';
-import{ Toaster } from 'react-hot-toast';
-import { useThemeContext } from '@/src/lib/ThemeContext';
-import NestedList from '../components/template/sideBar';
-import { Box } from '@mui/material';
-
+import NavbarComp from "../components/template/navBar";
+import Footer from "../components/template/footer";
+import { Toaster } from "react-hot-toast";
+import { useThemeContext } from "@/src/lib/ThemeContext";
+import NestedList from "../components/template/sideBar";
+import { Box } from "@mui/material";
 
 export default function Layout({ children }) {
-  const { theme , toggleTheme, toggleOffcanvas } = useThemeContext();
+  const { theme, toggleTheme, toggleOffcanvas } = useThemeContext();
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ width: '100%', margin: '1rem 0', flex: '1', overflow: 'hidden' }}>
-        <NavbarComp toggleOffcanvas={toggleOffcanvas} toggleTheme={toggleTheme} />
+    <div style={{ display: "flex" }}>
+      <Box
+        sx={{
+          width: "100%",
+          margin: { xs: "1rem 0", sm: "1rem" },
+          flex: "1",
+          overflow: "hidden",
+        }}
+      >
+        <NavbarComp
+          toggleOffcanvas={toggleOffcanvas}
+          toggleTheme={toggleTheme}
+        />
 
         <Box
           component="div"
@@ -24,13 +33,11 @@ export default function Layout({ children }) {
             mt: 2,
           }}
         >
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
         </Box>
 
-        <Footer/>
-      </div>
+        <Footer />
+      </Box>
 
       <NestedList />
       <Toaster />

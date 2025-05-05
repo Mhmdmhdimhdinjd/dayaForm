@@ -35,7 +35,9 @@ const Footer = () => (
       variant="body2"
       sx={{
         color: "text.secondary",
-        "@media (min-width: 844px)": { mr: "auto" },
+        "@media (min-width: 846px)": { mr: "auto" },
+        "@media (max-width: 710px)": { mr: "auto" },
+        "@media (max-width: 545px)": { mr: "0" },
         display: "block",
         textAlign: "center",
       }}
