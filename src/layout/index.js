@@ -1,8 +1,8 @@
-import NavbarComp from "../components/template/navBar";
-import Footer from "../components/template/footer";
+import NavbarComp from "./components/navBar";
+import Footer from "./components/footer";
 import { Toaster } from "react-hot-toast";
 import { useThemeContext } from "@/src/lib/ThemeContext";
-import NestedList from "../components/template/sideBar";
+import NestedList from "./components/sideBar";
 import { Box } from "@mui/material";
 
 export default function Layout({ children }) {
