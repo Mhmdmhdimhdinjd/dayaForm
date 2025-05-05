@@ -110,8 +110,8 @@ const validationSchema = yup.object().shape({
     .object()
     .required("لطفا شهر مورد علاقه را وارد نمایید "),
   firstPriority: yup.object().required("لطفا اولویت اول را وارد نمایید"),
-  secondPriority: yup.object(),
-  thirdPriority: yup.object(),
+  secondPriority: yup.object().nullable(),
+  thirdPriority: yup.object().nullable(),
   Gender: yup.object().required("لطفا جنسیت را وارد نمایید"),
   isMarried: yup.object().required("لطفا وضعیت تاهل را وارد نمایید"),
   criminal_record: yup.object().required("لطفا سابقه کیفری را مشخص نمایید"),
@@ -386,7 +386,9 @@ const Form = () => {
       <form style={{ direction: "rtl" }} onSubmit={handleSubmit(onSubmit)}>
         <Grid sx={{ m: 4 }} container spacing={2}>
           {/* نام  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -409,7 +411,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* نام خانوادگی  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -432,7 +436,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* کد شناسایی */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -498,7 +504,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* جنسیت */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -564,7 +572,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* وضعیت تاهل */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -630,7 +640,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* سابقه کیفری */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -696,7 +708,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* وضعیت سربازی */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -774,7 +788,9 @@ const Form = () => {
             </Divider>
           </Grid>
           {/* استان  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -840,7 +856,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* شهر  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -922,7 +940,9 @@ const Form = () => {
             <Divider />
           </Grid>
           {/* تاریخ تولد */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -957,7 +977,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* شماره موبایل  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -984,7 +1006,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* کد پستی  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1011,7 +1035,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* تلفن  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1038,7 +1064,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* حداقل حقوق  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1074,7 +1102,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* وضعیت معلولیت */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1140,7 +1170,7 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* نوع همکاری  */}
-          <Grid size={{ xs: 12, Laptop: 6, }}>
+          <Grid size={{ xs: 12, Laptop: 6 }}>
             <FormControl fullWidth component="fieldset">
               <Label labelText="نوع همکاری*" />
               <FormGroup row sx={{ gap: 3, ml: 4, mt: -1.5 }}>
@@ -1195,7 +1225,7 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* رزومه */}
-          <Grid size={{xs:12}}>
+          <Grid size={{ xs: 12 }}>
             <FormControl fullWidth>
               <Label labelText="رزومه کامل*" htmlFor="resume" />
               <Controller
@@ -1238,7 +1268,9 @@ const Form = () => {
             </Divider>
           </Grid>
           {/* اولویت اول  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1305,7 +1337,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* اولویت دوم  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1372,7 +1406,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* اولویت سوم  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1450,7 +1486,9 @@ const Form = () => {
             </Divider>
           </Grid>
           {/* استان مورد علاقه  */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
@@ -1516,7 +1554,9 @@ const Form = () => {
             </FormControl>
           </Grid>
           {/* شهر مورد علاقه */}
-          <Grid size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL:4, lg: 3 }}>
+          <Grid
+            size={{ xs: 12, mobileL: 6, sm: 12, Tablet: 6, LaptopL: 4, lg: 3 }}
+          >
             <FormControl fullWidth>
               <Controller
                 control={control}
